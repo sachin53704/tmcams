@@ -1,0 +1,5 @@
+[18-Jan-2024 12:27:34 Asia/Kolkata] PHP Fatal error:  Cannot declare class App\Console\Commands\SyncDeviceLogs, because the name is already in use in /home/corebioco/public_html/app/Console/Commands/SyncDeviceLogs_bak.php on line 13
+[04-Sep-2024 18:09:23 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/corebioco/public_html/vendor/psy/psysh/src/ExecutionLoop/ProcessForker.php on line 223
+[04-Sep-2024 18:09:23 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in Unknown on line 0
+[04-Sep-2024 18:09:50 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in /home/corebioco/public_html/vendor/psy/psysh/src/ExecutionLoop/ProcessForker.php on line 223
+[04-Sep-2024 18:09:50 Asia/Kolkata] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 262144 bytes) in Unknown on line 0

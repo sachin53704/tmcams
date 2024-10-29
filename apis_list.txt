@@ -1,0 +1,61 @@
+    val BASE_URL="http://corebio.in/ams/MobileApi/"
+    val BASE_URL1="http://corebio.in/ams/"
+    val File_Path = BASE_URL1 + "notification_document/"
+
+
+    @POST("staff_login")
+    suspend fun userLoginAPI(@Body loginRequest: LoginRequest):Response<LoginResponse>
+
+    @POST("profile_update")
+    suspend fun userRegisterAPI(@Body registrationRequest: RegistrationRequest):Response<RegistrationResponse>
+
+    @POST("mobile_dashboard")
+    suspend fun handleWeb(@Body webRequest: WebRequest):Response<adminWebViewResponse>
+
+    @POST("staff_dashboard")
+   suspend fun getGridDataAPI(@Body dashBoardRequest: getDashBoardRequest):Response<getGridResponse>
+
+    @GET(" ")
+    suspend fun getDashBoardAttendanceAPI():Response<getDashboardAttendanceResponse>
+
+    @GET("mstward_list")
+   suspend fun wardListAPI():Response<getWardListResponse>
+
+    @GET("mstdept_list")
+    suspend fun departmentListAPI(): Response<getDepartmentListResponse>
+
+    @GET("mstclass_list")
+    suspend fun classListAPI():Response<getClassListResponse>
+
+    @GET("mstdesignation_list")
+   suspend fun designationListAPI():Response<getDesignationResponse>
+
+    @POST("staff_register")
+   suspend fun getUserDetails(@Body employeeDetailsRequest: getUserDetailsRequest):Response<getUserDetailResponse>
+
+    @POST("monthly_attendance")
+    suspend fun getMonthYearReportAPI(@Body monthYearAttendanceRequest: getMonthYearReportRequest):Response<getMonthYearResponse>
+
+    @POST("monthly_attendance")
+    suspend fun getCurrentMonthAttendanceAPI(@Body currentMonthAttendance: getCurrentMonthAttendanceRequest):Response<getCurrentMonthAttendanceReportResponse>
+
+    @POST("password_update")
+    suspend fun updatePasswordAPI(@Body updatePasswordRequest: UpdatePasswordRequest):Response<UpdatePasswordResponse>
+
+    @POST("notification_list")
+    suspend fun getNotificationAPI(@Body userNotificationRequest: GetUserNotificationRequest):Response<GetUserNotificationResponse>
+
+    @POST("notification_list")
+    suspend fun getNotificationAPI1():Response<GetUserNotificationResponse>
+
+    @POST("staff_profile")
+    suspend fun staffProfile(@Body employeeDetailsRequest: getUserDetailsRequest): Response<getUserDetailResponse>
+
+    @POST("profile_update")
+    suspend fun userUpdateProfile(@Body registrationRequest: UpdateProfileRequest):Response<UpdateProfileResponse>
+
+    @POST("reset_newpass")
+   suspend fun forgetPassword(@Body forgetPasswordRequest: ForgetPasswordRequest):Response<ForgetPasswordResponse>
+
+    @POST("forget_password")
+    suspend fun getEmployeeEmaidID(@Body employeeEmailIDRequest: GetEmployeeEmailIDRequest): Response<GetEmployeeEmailIDResponse>
