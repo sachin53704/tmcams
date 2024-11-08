@@ -211,7 +211,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="is_half_day_on_saturday">Is Half Day On Saturday ? <span class="text-danger">*</span></label>
+                                            <label class="col-form-label" for="is_half_day_on_saturday">Is Fixed Half Day On Saturday ? <span class="text-danger">*</span></label>
                                             <div class="col">
                                                 <label class="me-3" for="radio_half_day_yes">
                                                     <input class="radio_animated" id="is_half_day_on_saturday_yes" type="radio" name="is_half_day_on_saturday" value="y">Yes
