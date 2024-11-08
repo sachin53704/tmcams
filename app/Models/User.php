@@ -49,6 +49,7 @@ class User extends Authenticatable
         'is_ot',
         'is_divyang',
         'is_half_day_on_saturday',
+        'contractor',
         'is_rotational',
         'permanent_address',
         'present_address',

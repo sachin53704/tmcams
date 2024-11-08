@@ -91,6 +91,23 @@
                                             <span class="text-danger error-text employee_type_err"></span>
                                         </div>
 
+                                        <div class="col-md-4 mt-3 d-none">
+                                            <label class="col-form-label" for="contractor">Contractor</label>
+                                            <select class="form-control" name="contractor" id="contractor">
+                                                <option value="">Select Contractor</option>
+                                                <option value="1">TMC Contractual</option>
+                                                <option value="2">Amrut</option>
+                                                <option value="3">Ashok Enterpriser</option>
+                                                <option value="4">COVID Staff</option>
+                                                <option value="5">Security Gaurd</option>
+                                                <option value="6">NUHM</option>
+                                                <option value="7">TB Contract</option>
+                                                <option value="8">Others One</option>
+                                                <option value="9">Others Two</option>
+                                            </select>
+                                            <span class="text-danger error-text contractor_err"></span>
+                                        </div>
+
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Is Rotational ?<span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" name="is_rotational">
@@ -316,6 +333,13 @@
             $("select[name='shift_id']").closest('.col-md-4').addClass('d-none');
         else
             $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
+        });
+
+        $('select[name="employee_type"]').on('change', function() {
+        if ( this.value == '0')
+            $("select[name='contractor']").closest('.col-md-4').removeClass('d-none');
+        else
+            $("select[name='contractor']").closest('.col-md-4').addClass('d-none');
         });
 
     });

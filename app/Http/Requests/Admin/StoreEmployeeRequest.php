@@ -37,6 +37,7 @@ class StoreEmployeeRequest extends FormRequest
             'device_id'=> 'required',
             'department_id'=> 'required',
             'sub_department_id'=> 'nullable',
+            'contractor'=> 'nullable',
             'shift_id'=> 'required_if:is_rotational,0',
             'in_time'=> 'nullable',
             'ward_id'=> 'required',

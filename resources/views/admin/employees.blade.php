@@ -93,6 +93,23 @@
                                             <span class="text-danger error-text employee_type_err"></span>
                                         </div>
 
+                                        <div class="col-md-4 mt-3 d-none">
+                                            <label class="col-form-label" for="contractor">Contractor</label>
+                                            <select class="form-control" name="contractor" id="contractor">
+                                                <option value="">Select Contractor</option>
+                                                <option value="1">TMC Contractual</option>
+                                                <option value="2">Amrut</option>
+                                                <option value="3">Ashok Enterpriser</option>
+                                                <option value="4">COVID Staff</option>
+                                                <option value="5">Security Gaurd</option>
+                                                <option value="6">NUHM</option>
+                                                <option value="7">TB Contract</option>
+                                                <option value="8">Others One</option>
+                                                <option value="9">Others Two</option>
+                                            </select>
+                                            <span class="text-danger error-text contractor_err"></span>
+                                        </div>
+
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Is Rotational ?<span class="text-danger">*</span></label>
                                             <select class="form-control col-sm-12" name="is_rotational">
@@ -458,6 +475,11 @@
                     else
                         $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
 
+                        if ( data.user.employee_type == '0')
+                        $("select[name='contractor']").closest('.col-md-4').removeClass('d-none');
+                    else
+                        $("select[name='contractor']").closest('.col-md-4').addClass('d-none');
+
                     $("#editForm input[name='edit_model_id']").val(data.user.id);
                     $("#editForm input[name='emp_code']").val(data.user.emp_code);
                     $("#editForm select[name='employee_type']").val(data.user.employee_type);
@@ -477,6 +499,7 @@
                     $("#editForm input[name='present_address']").val(data.user.present_address);
                     $("#editForm input[name='permanent_address']").val(data.user.permanent_address);
                     $("#editForm select[name='is_rotational']").val(data.user.is_rotational);
+                    $("#editForm select[name='contractor']").val(data.user.contractor);
                     data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true) ;
                     data.user.is_ot == 'y' ? $("#editForm input[name='is_ot'][value='y']").prop("checked", true) : $("#editForm input[name='is_ot'][value='n']").prop("checked", true) ;
                     data.user.is_divyang == 'y' ? $("#editForm input[name='is_divyang'][value='y']").prop("checked", true) : $("#editForm input[name='is_divyang'][value='n']").prop("checked", true) ;
@@ -496,6 +519,14 @@
 <!-- Update -->
 <script>
     $(document).ready(function() {
+
+        $('select[name="employee_type"]').on('change', function() {
+        if ( this.value == '0')
+            $("select[name='contractor']").closest('.col-md-4').removeClass('d-none');
+        else
+            $("select[name='contractor']").closest('.col-md-4').addClass('d-none');
+        });
+
         $("#editForm").submit(function(e) {
             e.preventDefault();
             $("#editSubmit").prop('disabled', true);

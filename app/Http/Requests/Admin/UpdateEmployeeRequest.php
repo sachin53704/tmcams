@@ -34,6 +34,7 @@ class UpdateEmployeeRequest extends FormRequest
             'present_address'=> 'nullable',
             'is_rotational'=> 'required',
             'employee_type'=> 'required',
+            'contractor'=> 'nullable',
             'device_id'=> 'nullable',
             'department_id'=> 'required',
             'sub_department_id'=> 'nullable',
