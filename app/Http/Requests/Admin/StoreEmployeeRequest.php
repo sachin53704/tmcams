@@ -44,6 +44,7 @@ class StoreEmployeeRequest extends FormRequest
             'designation_id'=> 'nullable',
             'is_ot'=> ['required', Rule::in(['y', 'n'])],
             'is_divyang'=> ['required', Rule::in(['y', 'n'])],
+            'is_half_day_on_saturday'=> ['required', Rule::in(['y', 'n'])],
         ];
     }
 }

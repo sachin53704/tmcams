@@ -48,6 +48,7 @@ class User extends Authenticatable
         'doj',
         'is_ot',
         'is_divyang',
+        'is_half_day_on_saturday',
         'is_rotational',
         'permanent_address',
         'present_address',

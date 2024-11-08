@@ -39,6 +39,7 @@ class UpdateEmployeeRequest extends FormRequest
             'sub_department_id'=> 'nullable',
             'is_ot'=> ['required', Rule::in(['y', 'n'])],
             'is_divyang'=> ['required', Rule::in(['y', 'n'])],
+            'is_half_day_on_saturday'=> ['required', Rule::in(['y', 'n'])],
             'shift_id'=> 'required_if:is_rotational,0',
             'in_time'=> 'nullable',
             'ward_id'=> 'required',

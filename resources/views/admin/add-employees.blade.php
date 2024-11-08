@@ -210,6 +210,19 @@
                                             <span class="text-danger error-text is_ot_err"></span>
                                         </div>
 
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="is_half_day_on_saturday">Is Half Day On Saturday ? <span class="text-danger">*</span></label>
+                                            <div class="col">
+                                                <label class="me-3" for="radio_half_day_yes">
+                                                    <input class="radio_animated" id="is_half_day_on_saturday_yes" type="radio" name="is_half_day_on_saturday" value="y">Yes
+                                                </label>
+                                                <label class="me-3" for="radio_half_day_no">
+                                                    <input class="radio_animated" id="is_half_day_on_saturday_no" type="radio" name="is_half_day_on_saturday" checked="" value="n">No
+                                                </label>
+                                            </div>
+                                            <span class="text-danger error-text is_half_day_on_saturday_err"></span>
+                                        </div>
+
                                     </div>
 
                                 </div>

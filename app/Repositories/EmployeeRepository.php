@@ -193,6 +193,9 @@ class EmployeeRepository
                     <div class="col-4 mt-2"> <strong >Is Divyang : </strong> </div>
                     <div class="col-8 mt-2"> '.($emp->is_divyang == "y" ? "Yes" : "No").' </div>
 
+                    <div class="col-4 mt-2"> <strong >Is Half Day On Saturday : </strong> </div>
+                    <div class="col-8 mt-2"> '.($emp->is_half_day_on_saturday == "y" ? "Yes" : "No").' </div>
+
                     <div class="col-4 mt-2"> <strong >Present Add : </strong> </div>
                     <div class="col-8 mt-2"> '.$emp->present_address.' </div>
 
