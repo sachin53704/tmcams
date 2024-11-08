@@ -43,6 +43,7 @@
                                             <span class="text-danger error-text mobile_err"></span>
                                         </div>
 
+                                    
                                         {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="permanent_address">Permanent Address </label>
                                             <input class="form-control" name="permanent_address" type="text" placeholder="Enter Permanent Address">
@@ -78,6 +79,16 @@
                                                 </label>
                                             </div>
                                             <span class="text-danger error-text gender_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="employee_type">Employee Type <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="employee_type" id="employee_type">
+                                                <option value="">Select Employee Type</option>
+                                                <option value="0">Contractual</option>
+                                                <option value="1">Permanent</option>
+                                            </select>
+                                            <span class="text-danger error-text employee_type_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">

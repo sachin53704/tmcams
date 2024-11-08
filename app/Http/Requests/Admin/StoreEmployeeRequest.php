@@ -33,7 +33,7 @@ class StoreEmployeeRequest extends FormRequest
             'permanent_address'=> 'nullable',
             'present_address'=> 'nullable',
             'is_rotational'=> 'required',
-
+            'employee_type'=> 'required',
             'device_id'=> 'required',
             'department_id'=> 'required',
             'sub_department_id'=> 'nullable',

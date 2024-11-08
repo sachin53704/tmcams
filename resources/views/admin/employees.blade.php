@@ -84,6 +84,16 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="employee_type">Employee Type <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="employee_type" id="employee_type">
+                                                <option value="">Select Employee Type</option>
+                                                <option value="0">Contractual</option>
+                                                <option value="1">Permanent</option>
+                                            </select>
+                                            <span class="text-danger error-text employee_type_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Is Rotational ?<span class="text-danger">*</span></label>
                                             <select class="form-control col-sm-12" name="is_rotational">
                                                 <option value=""> Is Rotational ? </option>
@@ -437,6 +447,7 @@
 
                     $("#editForm input[name='edit_model_id']").val(data.user.id);
                     $("#editForm input[name='emp_code']").val(data.user.emp_code);
+                    $("#editForm select[name='employee_type']").val(data.user.employee_type);
                     $("#editForm select[name='department_id']").html(data.departmentHtml);
                     // $("#editForm select[name='sub_department_id']").html(data.subDepartmentHtml);
                     $("#editForm select[name='ward_id']").html(data.wardHtml);

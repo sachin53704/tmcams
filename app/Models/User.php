@@ -39,6 +39,7 @@ class User extends Authenticatable
         'dob',
         'gender',
         'password',
+        'employee_type',
         'is_app_registered',
         'is_employee',
         'shift_id',

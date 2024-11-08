@@ -145,7 +145,7 @@ class EmployeeRepository
             $emp = User::findOrFail($emp);
 
         $emp->load(['department', 'subDepartment', 'designation', 'ward', 'clas', 'shift']);
-
+        $emp_type = $emp->employee_type == 1 ? 'Permanent' : 'Contractual';
         $html = '
                 <div class="row">
                     <div class="col-4 mt-2"> <strong >Emp Code : </strong> </div>
@@ -168,6 +168,9 @@ class EmployeeRepository
 
                     <div class="col-4 mt-2"> <strong >Gender : </strong> </div>
                     <div class="col-8 mt-2"> '.$emp->gender_text.' </div>
+
+                    <div class="col-4 mt-2"> <strong >Employee Type: </strong> </div>
+                    <div class="col-8 mt-2"> '.$emp_type.' </div>
 
                     <div class="col-4 mt-2"> <strong >Department : </strong> </div>
                     <div class="col-8 mt-2"> '.$emp->department->name.' </div>
