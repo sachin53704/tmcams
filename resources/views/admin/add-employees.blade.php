@@ -31,11 +31,11 @@
                                             <span class="text-danger error-text name_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="email">Employee Email </label>
                                             <input class="form-control" name="email" type="email" placeholder="Enter Employee Email">
                                             <span class="text-danger error-text email_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="mobile">Employee Mobile </label>
@@ -43,29 +43,29 @@
                                             <span class="text-danger error-text mobile_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="permanent_address">Permanent Address </label>
                                             <input class="form-control" name="permanent_address" type="text" placeholder="Enter Permanent Address">
                                             <span class="text-danger error-text permanent_address_err"></span>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="present_address">Present Address </label>
                                             <input class="form-control" name="present_address" type="text" placeholder="Enter Present Address">
                                             <span class="text-danger error-text present_address_err"></span>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="dob">Date of Birth </label>
                                             <input class="form-control" id="dob" name="dob" type="date" max="{{ Carbon\Carbon::now()->format('Y-m-d') }}" onclick="this.showPicker()" placeholder="Enter Date of Birth">
                                             <span class="text-danger error-text dob_err"></span>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="doj">Date of Joining </label>
                                             <input class="form-control" id="doj" name="doj" type="date" max="{{ Carbon\Carbon::now()->format('Y-m-d') }}" onclick="this.showPicker()" placeholder="Enter Date of Joining">
                                             <span class="text-danger error-text doj_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="gender">Gender <span class="text-danger">*</span></label>
