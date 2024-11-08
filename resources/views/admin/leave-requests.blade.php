@@ -116,7 +116,7 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
+                                            <label class="col-form-label" for="remark">Remark</label>
                                             <textarea class="form-control" name="remark" style="min-height: 60px; max-height:60px"></textarea>
                                             <span class="text-danger error-text remark_err"></span>
                                         </div>
@@ -243,7 +243,7 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
+                                            <label class="col-form-label" for="remark">Remark </label>
                                             <textarea class="form-control" name="remark" style="min-height: 60px; max-height:60px"></textarea>
                                             <span class="text-danger error-text remark_err"></span>
                                         </div>
