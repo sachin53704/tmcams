@@ -372,7 +372,11 @@
                                 )
                                 { $latemark++; $islate = true; }
 
-                                if( !$isNightShift && $hasPunch->duration < $settings['MIN_COMPLETION_HOUR']) {$shortDays++;}
+                                if( !$isNightShift && $hasPunch->duration < $settings['MIN_COMPLETION_HOUR']) {
+                                    $shortDays++;
+                                }elseif ($emp->is_half_day_on_saturday == 'y' && $hasPunch->duration < $settings['MIN_COMPLETION_HOUR_FOR_SAT_HALF_DAY']) {
+                                    $shortDays++;
+                                }
                             @endphp
                             @if ( $isNightShift )
                                 @php

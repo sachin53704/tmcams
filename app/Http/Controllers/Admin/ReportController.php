@@ -102,7 +102,7 @@ class ReportController extends Controller
         if( $request->month )
         {
             $empList = User::whereNot('id', $authUser->id)
-                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'name', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang')
+                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'name', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang','is_half_day_on_saturday')
                     ->with('punches', fn($q) => $q
                         ->whereBetween('punch_date', [$fromDate, $toDate] )
                         ->select('id', 'emp_code', 'check_in', 'check_out', 'punch_date', 'is_latemark', 'type', 'leave_type_id', 'is_paid', 'duration', 'punch_by')

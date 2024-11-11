@@ -105,6 +105,24 @@ class SettingSeeder extends Seeder
                 'group' => 'attendance',
                 'type' => 'text'
             ],
+            [
+                'id' => 11,
+                'configurable_type' => 'App\Models\Tenant',
+                'configurable_id' => '1',
+                'key' => 'MIN_COMPLETION_HOUR_FOR_SAT_HALF_DAY',
+                'value' => '16200',
+                'group' => 'attendance',
+                'type' => 'text'
+            ],
+            [
+                'id' => 12,
+                'configurable_type' => 'App\Models\Tenant',
+                'configurable_id' => '2',
+                'key' => 'MIN_COMPLETION_HOUR_FOR_SAT_HALF_DAY',
+                'value' => '16200',
+                'group' => 'attendance',
+                'type' => 'text'
+            ],
         ];
 
         foreach ($settings as $setting) {
