@@ -25,13 +25,13 @@ class StoreUserRequest extends FormRequest
         return [
             'department_id' => 'required|exists:departments,id',
             'sub_department_id' => 'nullable',
-            'emp_code' => 'required|max:15|regex:/^[A-Z0-9]+$/',
-            'dob' => 'required',
+            'emp_code' => 'nullable|max:15|regex:/^[A-Z0-9]+$/',
+            'dob' => 'nullable',
             'gender' => ['required', Rule::in(['m', 'f', 'o'])],
             'role' => 'required',
             'name' => 'required',
             'email' => 'required|unique:app_users,email|email',
-            'mobile' => 'required|unique:app_users,mobile|digits:10',
+            'mobile' => 'nullable|unique:app_users,mobile|digits:10',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
         ];

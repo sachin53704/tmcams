@@ -19,11 +19,11 @@
 
 
                                     <div class="mb-3 row">
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="emp_code">Employee Code <span class="text-danger">*</span> </label>
                                             <input class="form-control" id="emp_code" name="emp_code" type="text" placeholder="Enter Employee Code">
                                             <span class="text-danger error-text emp_code_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="department_id">Select Department <span class="text-danger">*</span></label>
@@ -37,28 +37,28 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="name">User Name <span class="text-danger">*</span></label>
+                                            <label class="col-form-label" for="name">Employee Name <span class="text-danger">*</span></label>
                                             <input class="form-control" id="name" name="name" type="text" placeholder="Enter User Name">
                                             <span class="text-danger error-text name_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="email">User Email <span class="text-danger">*</span></label>
-                                            <input class="form-control" id="email" name="email" type="email" placeholder="Enter User Email">
+                                            <label class="col-form-label" for="email">UserId / Email <span class="text-danger">*</span></label>
+                                            <input class="form-control" id="email" name="email" type="email" placeholder="Enter UserId / Email">
                                             <span class="text-danger error-text email_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="mobile">User Mobile <span class="text-danger">*</span></label>
+                                            <label class="col-form-label" for="mobile">User Mobile </label>
                                             <input class="form-control" id="mobile" name="mobile" type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter User Mobile">
                                             <span class="text-danger error-text mobile_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="dob">Date of Birth <span class="text-danger">*</span></label>
                                             <input class="form-control" id="dob" name="dob" type="date" onclick="this.showPicker()" placeholder="Enter User Mobile">
                                             <span class="text-danger error-text dob_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="gender">Gender <span class="text-danger">*</span></label>
@@ -125,11 +125,11 @@
 
                                     <div class="mb-3 row">
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="emp_code">Employee Code <span class="text-danger">*</span> </label>
                                             <input class="form-control" name="emp_code" type="text" placeholder="Enter Employee Code">
                                             <span class="text-danger error-text emp_code_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="department_id">Select Department <span class="text-danger">*</span></label>
@@ -143,28 +143,28 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label class="col-form-label" for="name">User Name <span class="text-danger">*</span></label>
+                                            <label class="col-form-label" for="name">Employee Name <span class="text-danger">*</span></label>
                                             <input class="form-control" name="name" type="text" placeholder="Enter User Name">
                                             <span class="text-danger error-text name_err"></span>
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label class="col-form-label" for="email">User Email <span class="text-danger">*</span></label>
-                                            <input class="form-control" name="email" type="email" placeholder="Enter User Email">
+                                            <label class="col-form-label" for="email">UserId / Email <span class="text-danger">*</span></label>
+                                            <input class="form-control" name="email" type="email" placeholder="Enter UserId / Email">
                                             <span class="text-danger error-text email_err"></span>
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label class="col-form-label" for="mobile">User Mobile <span class="text-danger">*</span></label>
+                                            <label class="col-form-label" for="mobile">User Mobile</label>
                                             <input class="form-control" name="mobile" type="number" min="0" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" placeholder="Enter User Mobile">
                                             <span class="text-danger error-text mobile_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="dob">Date of Birth <span class="text-danger">*</span></label>
                                             <input class="form-control" name="dob" type="date" onclick="this.showPicker()" placeholder="Enter User Mobile">
                                             <span class="text-danger error-text dob_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="gender">Gender <span class="text-danger">*</span></label>
