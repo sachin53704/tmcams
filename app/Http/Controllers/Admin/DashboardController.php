@@ -57,7 +57,7 @@ class DashboardController extends Controller
             $departments = Department::query()
                 ->withCount([
                     'users' => fn($q) => $q
-                        ->when($department, fn($qr) => $qr->where('department_id', $department)->where('is_employee', 1))
+                        ->when($department, fn($qr) => $qr->where('department_id', $department))->where('is_employee', 1)
                 ])
                 ->when(Auth::user()->hasRole(['HOD/checker']), function ($q) {
                     $q->where('id', Auth::user()->department_id);
