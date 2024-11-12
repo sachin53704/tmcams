@@ -31,7 +31,7 @@ class UpdateUserRequest extends FormRequest
             'role' => 'required',
             'name' => 'required',
             'email' => 'required|email',
-            'mobile' => 'required|digits:10',
+            'mobile' => 'nullable|digits:10',
         ];
     }
 }
