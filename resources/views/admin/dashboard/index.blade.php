@@ -260,7 +260,7 @@
 
                 {{-- Office/Ward wise details --}}
                 <div class="col-12 px-0">
-                    @if ( $is_admin && !request()->ward )
+                    @if ( $is_admin && request()->department )
                         <div class="row">
                             <div class="card rounded">
                                 <div class="card-header px-2 py-3">
@@ -269,7 +269,8 @@
                                 <div class="row">
                                     @foreach ($totalWards as $totalWard)
                                         @php
-                                            $currentWardData = $todayPunchData->where( fn($item) => $item->user?->ward_id == $totalWard->id );
+                                            $currentWardData = $todayPunchData->where( fn($item) => $item->user->ward_id == $totalWard->id );
+                                            $currentWardData = $currentWardData->where( fn($item) => $item->user->department_id == request()->department );
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                             <div class="card custom-card rounded">
@@ -290,9 +291,80 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer row">
+                                                {{-- <div class="card-footer row">
                                                     <div class="col-12 col-sm-12">
                                                         <a href="{{ route('dashboard', ['ward'=> $totalWard->id]) }}" class="btn btn-primary color-green-blue font-12">CLICK HERE FOR MORE DETAILS</a>
+                                                    </div>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+
+
+                <div class="col-12 px-0">
+                    @if ( $is_admin && !request()->department )
+                        <div class="row">
+                            <div class="card rounded">
+                                <div class="card-header px-2 py-3">
+                                    <h6>Department Wise Details</h6>
+                                </div>
+                                <div class="row">
+                                    @foreach ($departments as $department)
+                                        @php
+                                            $currentDeptData = $todayPunchData
+                                                            // ->where( fn($item) => $item->user->ward_id == request()->ward )
+                                                            ->where( fn($item) => $item->user->department_id == $department->id );
+                                        @endphp
+                                        <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
+                                            <div class="card custom-card rounded">
+                                                <h6 class="card-header rounded bg-primary py-2 px-3 text-center"> {{ Str::limit(ucwords($department->name), 25) }}</h6>
+                                                <div class="card-body px-3">
+                                                    <div class="row">
+                                                        <div class="col-4 br-right text-center">
+                                                            <h6 class="mb-0">Total</h6>
+                                                            <strong style="font-size:22px">{{ $department->users_count }} </strong> <br>
+                                                        </div>
+                                                        <div class="col-4 br-right text-center">
+                                                            <h6 class="mb-0">Present</h6>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentDeptData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(($currentDeptData->count()/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                        </div>
+                                                        <div class="col-4 text-center">
+                                                            <h6 class="mb-0">Absent</h6>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $department->users_count-$currentDeptData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(((($department->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer row">
+                                                    <div class="col-2 col-sm-2">
+                                                        <h6 class="font-12">CL</h6>
+                                                        <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '6')->count() }}</span></h3>
+                                                    </div>
+                                                    <div class="col-2 col-sm-2">
+                                                        <h6 class="font-12">EL</h6>
+                                                        <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '5')->count() }}</span></h3>
+                                                    </div>
+                                                    <div class="col-2 col-sm-2">
+                                                        <h6 class="font-12">ML</h6>
+                                                        <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '7')->count() }}</span></h3>
+                                                    </div>
+                                                    <div class="col-3 col-sm-3">
+                                                        <h6 class="font-12">OL</h6>
+                                                        <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '4')->count() }}</span></h3>
+                                                    </div>
+                                                    <div class="col-3 col-sm-3">
+                                                        <h6 class="font-12">HDL</h6>
+                                                        <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '0')->count() }}</span></h3>
+                                                    </div>
+                                                </div>
+                                                <div class="card-footer row">
+                                                    <div class="col-12 col-sm-12">
+                                                        <a href="{{ route('dashboard', ['department'=> $department->id]) }}" class="btn btn-primary color-green-blue font-12">CLICK HERE FOR MORE DETAILS</a>
                                                     </div>
                                                 </div>
                                             </div>
