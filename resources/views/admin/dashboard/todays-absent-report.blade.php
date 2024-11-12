@@ -72,6 +72,20 @@
                                             @enderror
                                         </div>
 
+                                        <div class="col-md-3 mt-3">
+                                            <label class="col-form-label" for="employee_type">Employee Type </label>
+                                            <select class="js-example-basic-single col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type">
+                                                <option value="">--Select Employee Type--</option>
+                                                <option value="0" {{ request()->employee_type == "0" ? 'selected' : '' }}>Contractual</option>
+                                                <option value="1" {{ request()->employee_type == "1" ? 'selected' : '' }}>Permanent</option>
+                                            </select>
+                                            @error('employee_type')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
 
                                     </div>
 
