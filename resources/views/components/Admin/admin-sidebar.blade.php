@@ -31,6 +31,9 @@
                                 @can('departments.view')
                                     <li><a href="{{ route('departments.index') }}">Departments </a></li>
                                 @endcan
+                                @can('contractors.view')
+                                    <li><a href="{{ route('contractors.index') }}">Contractors </a></li>
+                                @endcan
                                 @can('designations.view')
                                     <li><a href="{{ route('designations.index') }}">Designations </a></li>
                                 @endcan
