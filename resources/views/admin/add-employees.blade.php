@@ -102,8 +102,9 @@
                                                 <option value="5">Security Gaurd</option>
                                                 <option value="6">NUHM</option>
                                                 <option value="7">TB Contract</option>
-                                                <option value="8">Others One</option>
-                                                <option value="9">Others Two</option>
+                                                <option value="8">Neel Enterprises</option>
+                                                <option value="9">Others One</option>
+                                                <option value="10">Others Two</option>
                                             </select>
                                             <span class="text-danger error-text contractor_err"></span>
                                         </div>
