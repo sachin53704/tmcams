@@ -95,16 +95,9 @@
                                             <label class="col-form-label" for="contractor">Contractor</label>
                                             <select class="form-control" name="contractor" id="contractor">
                                                 <option value="">Select Contractor</option>
-                                                <option value="1">TMC Contractual</option>
-                                                <option value="2">Amrut</option>
-                                                <option value="3">Ashok Enterpriser</option>
-                                                <option value="4">COVID Staff</option>
-                                                <option value="5">Security Gaurd</option>
-                                                <option value="6">NUHM</option>
-                                                <option value="7">TB Contract</option>
-                                                <option value="8">Neel Enterprises</option>
-                                                <option value="9">Others One</option>
-                                                <option value="10">Others Two</option>
+                                                @foreach ($contractors as $contractor)
+                                                    <option value="{{ $contractor->id }}">{{ $contractor->name }}</option>
+                                                @endforeach
                                             </select>
                                             <span class="text-danger error-text contractor_err"></span>
                                         </div>

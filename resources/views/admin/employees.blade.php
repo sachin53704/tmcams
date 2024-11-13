@@ -97,16 +97,7 @@
                                             <label class="col-form-label" for="contractor">Contractor</label>
                                             <select class="form-control" name="contractor" id="contractor">
                                                 <option value="">Select Contractor</option>
-                                                <option value="1">TMC Contractual</option>
-                                                <option value="2">Amrut</option>
-                                                <option value="3">Ashok Enterpriser</option>
-                                                <option value="4">COVID Staff</option>
-                                                <option value="5">Security Gaurd</option>
-                                                <option value="6">NUHM</option>
-                                                <option value="7">TB Contract</option>
-                                                <option value="8">Neel Enterprises</option>
-                                                <option value="9">Others One</option>
-                                                <option value="10">Others Two</option>
+                                                
                                             </select>
                                             <span class="text-danger error-text contractor_err"></span>
                                         </div>
@@ -500,7 +491,7 @@
                     $("#editForm input[name='present_address']").val(data.user.present_address);
                     $("#editForm input[name='permanent_address']").val(data.user.permanent_address);
                     $("#editForm select[name='is_rotational']").val(data.user.is_rotational);
-                    $("#editForm select[name='contractor']").val(data.user.contractor);
+                    $("#editForm select[name='contractor']").html(data.contractorHtml);
                     data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true) ;
                     data.user.is_ot == 'y' ? $("#editForm input[name='is_ot'][value='y']").prop("checked", true) : $("#editForm input[name='is_ot'][value='n']").prop("checked", true) ;
                     data.user.is_divyang == 'y' ? $("#editForm input[name='is_divyang'][value='y']").prop("checked", true) : $("#editForm input[name='is_divyang'][value='n']").prop("checked", true) ;
