@@ -116,16 +116,9 @@
                                             <label class="col-form-label" for="contractor">Contractor</label>
                                             <select class="form-control" name="contractor" id="contractor">
                                                 <option value="">Select Contractor</option>
-                                                <option value="1" {{ request()->contractor == "1" ? 'selected' : '' }}>TMC Contractual</option>
-                                                <option value="2" {{ request()->contractor == "2" ? 'selected' : '' }}>Amrut</option>
-                                                <option value="3" {{ request()->contractor == "3" ? 'selected' : '' }}>Ashok Enterpriser</option>
-                                                <option value="4" {{ request()->contractor == "4" ? 'selected' : '' }}>COVID Staff</option>
-                                                <option value="5" {{ request()->contractor == "5" ? 'selected' : '' }}>Security Gaurd</option>
-                                                <option value="6" {{ request()->contractor == "6" ? 'selected' : '' }}>NUHM</option>
-                                                <option value="7" {{ request()->contractor == "7" ? 'selected' : '' }}>TB Contract</option>
-                                                <option value="8" {{ request()->contractor == "8" ? 'selected' : '' }}>Neel Enterprises</option>
-                                                <option value="9" {{ request()->contractor == "9" ? 'selected' : '' }}>Others One</option>
-                                                <option value="10" {{ request()->contractor == "10" ? 'selected' : '' }}>Others Two</option>
+                                                @foreach ($contractors as $contractor)
+                                                    <option value="{{ $contractor->id }}" {{ request()->contractor == $contractor->id ? 'selected' : '' }} >{{ $contractor->name }}</option>
+                                                @endforeach
                                             </select>
                                             <span class="text-danger error-text contractor_err"></span>
                                         </div>
