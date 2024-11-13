@@ -99,8 +99,8 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="employee_type">Employee Type </label>
-                                            <select class="js-example-basic-single col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type">
+                                            <label class="col-form-label" for="employee_type">Employee Type <span class="text-danger">*</span></label>
+                                            <select class="form-control col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type" id="employee_type" required>
                                                 <option value="">--Select Employee Type--</option>
                                                 <option value="0" {{ request()->employee_type == "0" ? 'selected' : '' }}>Contractual</option>
                                                 <option value="1" {{ request()->employee_type == "1" ? 'selected' : '' }}>Permanent</option>
@@ -110,6 +110,24 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+
+                                        <div class="col-md-3 mt-3 @if(request()->contractor) {{ '' }} @else {{ 'd-none' }} @endif" id="contractor_div">
+                                            <label class="col-form-label" for="contractor">Contractor</label>
+                                            <select class="form-control" name="contractor" id="contractor">
+                                                <option value="">Select Contractor</option>
+                                                <option value="1" {{ request()->contractor == "1" ? 'selected' : '' }}>TMC Contractual</option>
+                                                <option value="2" {{ request()->contractor == "2" ? 'selected' : '' }}>Amrut</option>
+                                                <option value="3" {{ request()->contractor == "3" ? 'selected' : '' }}>Ashok Enterpriser</option>
+                                                <option value="4" {{ request()->contractor == "4" ? 'selected' : '' }}>COVID Staff</option>
+                                                <option value="5" {{ request()->contractor == "5" ? 'selected' : '' }}>Security Gaurd</option>
+                                                <option value="6" {{ request()->contractor == "6" ? 'selected' : '' }}>NUHM</option>
+                                                <option value="7" {{ request()->contractor == "7" ? 'selected' : '' }}>TB Contract</option>
+                                                <option value="8" {{ request()->contractor == "8" ? 'selected' : '' }}>Neel Enterprises</option>
+                                                <option value="9" {{ request()->contractor == "9" ? 'selected' : '' }}>Others One</option>
+                                                <option value="10" {{ request()->contractor == "10" ? 'selected' : '' }}>Others Two</option>
+                                            </select>
+                                            <span class="text-danger error-text contractor_err"></span>
                                         </div>
                     {{--
                                         <div class="col-md-3 mt-3">
@@ -486,3 +504,17 @@
         });
     });
 </script> --}}
+
+
+<script>
+    document.getElementById('employee_type').addEventListener('change', function() {
+        var employeeType = this.value;
+        var contractorDiv = document.getElementById('contractor_div');
+        
+        if (employeeType == "0") {
+            contractorDiv.classList.remove('d-none');
+        } else {
+            contractorDiv.classList.add('d-none');
+        }
+    });
+</script>

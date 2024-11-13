@@ -65,6 +65,7 @@ class ReportController extends Controller
                         ->when($request->ward, fn($qr)=> $qr->where('ward_id', $request->ward))
                         ->when($request->class, fn($qr)=> $qr->where('clas_id', $request->class))
                         ->when($request->employee_type, fn($qr)=> $qr->where('employee_type', $request->employee_type))
+                        ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         ->when($request->designation, fn($qr)=> $qr->where('designation_id', $request->designation))
                         ->get();
 
@@ -103,7 +104,7 @@ class ReportController extends Controller
         if( $request->month )
         {
             $empList = User::whereNot('id', $authUser->id)
-                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'employee_type', 'name', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang','is_half_day_on_saturday')
+                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'employee_type', 'name', 'contractor', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang','is_half_day_on_saturday')
                     ->with('punches', fn($q) => $q
                         ->whereBetween('punch_date', [$fromDate, $toDate] )
                         ->select('id', 'emp_code', 'check_in', 'check_out', 'punch_date', 'is_latemark', 'type', 'leave_type_id', 'is_paid', 'duration', 'punch_by')
@@ -119,6 +120,7 @@ class ReportController extends Controller
                     ->when(!$request->emp_code && $request->class, fn($qr)=> $qr->where('clas_id', $request->class ))
                     ->when(!$request->emp_code && $request->designation, fn($qr)=> $qr->where('designation_id', $request->designation))
                     ->when($request->employee_type, fn($qr)=> $qr->where('employee_type', $request->employee_type))
+                    ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                     ->when($request->emp_code, fn($qr)=> $qr->where('emp_code', $request->emp_code))
                     ->get();
 
@@ -252,11 +254,12 @@ class ReportController extends Controller
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
 
         $data = Punch::withWhereHas(
-                        'user', fn($qr)=> $qr->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type' )
+                        'user', fn($qr)=> $qr->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type', 'contractor' )
                                 ->with('device:DeviceId,DeviceLocation', 'ward', 'clas')
                                 ->when( $selectedDepartmentId, fn($q)=> $q->where('department_id', $selectedDepartmentId) )
                                 ->when( $request->ward, fn($q)=> $q->where('ward_id', $request->ward) )
                                 ->when( $request->employee_type, fn($q)=> $q->where('employee_type', $request->employee_type) )
+                                ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         )
                         ->when($request->before, fn($q)=> $q->whereTime('check_in', '<=', $request->before)->whereTime('check_in', '>=', '01:00:00'))
                         ->when($request->after, fn($q)=> $q->whereTime('check_in', '>=', $request->after)->whereTime('check_in', '<=', '24:00:00'))
@@ -281,13 +284,14 @@ class ReportController extends Controller
         $date = $request->date ? Carbon::parse($request->date)->toDateString() : Carbon::today()->toDateString();
 
         $data = User::whereDoesntHave( 'punches', fn($q)=> $q->whereDate('punch_date', $date ) )
-                        ->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name' )
+                        ->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type', 'contractor' )
                         ->whereIsEmployee('1')
                         ->where('tenant_id', $authUser->tenant_id)
                         ->with('ward', 'shift', 'clas')
                         ->when( $selectedDepartmentId, fn($q)=> $q->where('department_id', $selectedDepartmentId) )
                         ->when( $request->ward, fn($q)=> $q->where('ward_id', $request->ward) )
                         ->when( $request->employee_type, fn($q)=> $q->where('employee_type', $request->employee_type) )
+                        ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         ->get();
 
         return view('admin.dashboard.todays-absent-report')->with(['data'=> $data, 'wards'=> $wards, 'isAdmin'=> $isAdmin, 'departments'=> $departments]);
