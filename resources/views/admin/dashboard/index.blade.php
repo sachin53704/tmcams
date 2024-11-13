@@ -331,12 +331,28 @@
                                                             <strong style="font-size:22px">{{ $department->users_count }} </strong> <br>
                                                         </div>
                                                         <div class="col-4 br-right text-center">
+                                                            <a href="{{ route('dashboard.todays-present-report', ['year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => "", 'department' => $department->id, 'employee_type' => ""]) }}" class="text-dark">
                                                             <h6 class="mb-0">Present</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentDeptData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(($currentDeptData->count()/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">
+                                                                {{ $currentDeptData->count() }} 
+                                                                <span style="font-size:14px; display:inline-block;">
+                                                                    ({{ $department->users_count ? round(($currentDeptData->count()/$department->users_count)*100) : '0' }}%)
+                                                                </span>
+                                                            </strong> <br>
+                                                            </a>
                                                         </div>
                                                         <div class="col-4 text-center">
+                                                            <a href="{{ route('dashboard.todays-absent-report', ['year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => "", 'department' => $department->id, 'employee_type' => ""]) }}" class="text-dark">
                                                             <h6 class="mb-0">Absent</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $department->users_count-$currentDeptData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(((($department->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">
+                                                                {{ abs( $department->users_count-$currentDeptData->count() ) }} 
+                                                                
+                                                                <span style="font-size:14px; display:inline-block;">
+                                                                    ({{ $department->users_count ? round(((($department->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)
+                                                                </span>
+                                                            </strong>
+                                                            <br>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -360,11 +376,6 @@
                                                     <div class="col-3 col-sm-3">
                                                         <h6 class="font-12">HDL</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '0')->count() }}</span></h3>
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer row">
-                                                    <div class="col-12 col-sm-12">
-                                                        <a href="{{ route('dashboard', ['department'=> $department->id]) }}" class="btn btn-primary color-green-blue font-12">CLICK HERE FOR MORE DETAILS</a>
                                                     </div>
                                                 </div>
                                             </div>
