@@ -358,24 +358,34 @@
                                                 </div>
                                                 <div class="card-footer row">
                                                     <div class="col-2 col-sm-2">
+                                                        <a href="{{ route('dashboard.todays-leave-bifurcation', ['department' => $department->id, 'leave_type_id' => '6', 'year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => ""]) }}" class="text-dark">
                                                         <h6 class="font-12">CL</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '6')->count() }}</span></h3>
+                                                        </a>
                                                     </div>
                                                     <div class="col-2 col-sm-2">
+                                                        <a href="{{ route('dashboard.todays-leave-bifurcation', ['department' => $department->id, 'leave_type_id' => '5', 'year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => ""]) }}" class="text-dark">
                                                         <h6 class="font-12">EL</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '5')->count() }}</span></h3>
+                                                        </a>
                                                     </div>
                                                     <div class="col-2 col-sm-2">
+                                                        <a href="{{ route('dashboard.todays-leave-bifurcation', ['department' => $department->id, 'leave_type_id' => '7', 'year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => ""]) }}" class="text-dark">
                                                         <h6 class="font-12">ML</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '7')->count() }}</span></h3>
+                                                        </a>
                                                     </div>
                                                     <div class="col-3 col-sm-3">
+                                                        <a href="{{ route('dashboard.todays-leave-bifurcation', ['department' => $department->id, 'leave_type_id' => '4', 'year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => ""]) }}" class="text-dark">
                                                         <h6 class="font-12">OL</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '4')->count() }}</span></h3>
+                                                        </a>
                                                     </div>
                                                     <div class="col-3 col-sm-3">
+                                                        <a href="{{ route('dashboard.todays-leave-bifurcation', ['department' => $department->id, 'leave_type_id' => '0', 'year' => date('Y'), 'date' => date('Y-m-d'), 'ward' => ""]) }}" class="text-dark">
                                                         <h6 class="font-12">HDL</h6>
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '0')->count() }}</span></h3>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </div>
