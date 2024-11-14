@@ -92,74 +92,80 @@
             <div class="table-responsive mt-3">
                 <table class="table table-hover">
                     <thead>
-                        <tr>
-                            <th scope="col">Emp</th>
-                            <th scope="col">{{ $date_ranges[0]->format('l') }}
-                                <br>({{ $date_ranges[0]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[1]->format('l') }}
-                                <br>({{ $date_ranges[1]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[2]->format('l') }}
-                                <br>({{ $date_ranges[2]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[3]->format('l') }}
-                                <br>({{ $date_ranges[3]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[4]->format('l') }}
-                                <br>({{ $date_ranges[4]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[5]->format('l') }}
-                                <br>({{ $date_ranges[5]->format('d M') }})
-                            </th>
-                            <th scope="col">{{ $date_ranges[6]->format('l') }}
-                                <br>({{ $date_ranges[6]->format('d M') }})
-                            </th>
-                            <th scope="col">Action</th>
-                        </tr>
+                        @if (!empty($date_ranges) && count($date_ranges) >= 7)
+                            <tr>
+                                <th scope="col">Emp</th>
+                                <th scope="col">{{ $date_ranges[0]->format('l') }}
+                                    <br>({{ $date_ranges[0]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[1]->format('l') }}
+                                    <br>({{ $date_ranges[1]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[2]->format('l') }}
+                                    <br>({{ $date_ranges[2]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[3]->format('l') }}
+                                    <br>({{ $date_ranges[3]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[4]->format('l') }}
+                                    <br>({{ $date_ranges[4]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[5]->format('l') }}
+                                    <br>({{ $date_ranges[5]->format('d M') }})
+                                </th>
+                                <th scope="col">{{ $date_ranges[6]->format('l') }}
+                                    <br>({{ $date_ranges[6]->format('d M') }})
+                                </th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        @else
+                            <tr>
+                                <td colspan="8">No date ranges available.</td>
+                            </tr>
+                        @endif
                     </thead>
                     <tbody>
+                        @if (!empty($date_ranges) && count($date_ranges) >= 7)
+                            @foreach ($employees as $key => $employee)
+                                <tr>
+                                    <th>
+                                        <input wire:model.defer="emp_code.{{ $key }}" name="emp_code.{{ $key }}" class="form-control px-1" type="text" disabled placeholder="Enter Employee Code">
+                                    </th>
+                                    @foreach ($date_ranges as $date_range)
+                                        @php
+                                            $fieldName = strtolower(substr(Carbon\Carbon::parse($date_range)->format('D'), 0, 2)).'.'.$key;
+                                        @endphp
+                                        <td>
+                                            <select class="form-control @if($errors->has( $fieldName )) is-invalid @endif" name="{{ $fieldName }}" wire:model.defer="{{ $fieldName }}">
+                                                <option value="">----</option>
+                                                {{-- @foreach ($roster_offs as $key => $roster_off)
+                                                <option value="{{ array_key($roster_off[$key]) }}">{{ $roster_off[$key] }}</option>
 
-                        @foreach ($employees as $key => $employee)
-                            <tr>
-                                <th>
-                                    <input wire:model.defer="emp_code.{{ $key }}" name="emp_code.{{ $key }}" class="form-control px-1" type="text" disabled placeholder="Enter Employee Code">
-                                </th>
-                                @foreach ($date_ranges as $date_range)
-                                    @php
-                                        $fieldName = strtolower(substr(Carbon\Carbon::parse($date_range)->format('D'), 0, 2)).'.'.$key;
-                                    @endphp
+                                                @endforeach --}}
+                                                <option value="wo">WEEK OFF</option>
+                                                <option value="no">NIGHT OFF</option>
+                                                <option value="do">DAY OFF</option>
+                                                <option value="co">COMPENSATORY OFF</option>
+                                                <option value="ph">PUBLIC HOLIDAY</option>
+                                                <option value="so">SATURDAY OFF</option>
+                                                <option value="tr">TECHNICAL BREAK</option>
+                                                @foreach ($shiftLists as $shiftList)
+                                                    <option value="{{ $shiftList->id }}">{{ $shiftList->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has($fieldName))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first($fieldName) }}</strong>
+                                                </span>
+                                            @endif
+                                        </td>
+                                    @endforeach
                                     <td>
-                                        <select class="form-control @if($errors->has( $fieldName )) is-invalid @endif" name="{{ $fieldName }}" wire:model.defer="{{ $fieldName }}">
-                                            <option value="">----</option>
-                                            {{-- @foreach ($roster_offs as $key => $roster_off)
-                                            <option value="{{ array_key($roster_off[$key]) }}">{{ $roster_off[$key] }}</option>
-
-                                            @endforeach --}}
-                                            <option value="wo">WEEK OFF</option>
-                                            <option value="no">NIGHT OFF</option>
-                                            <option value="do">DAY OFF</option>
-                                            <option value="co">COMPENSATORY OFF</option>
-                                            <option value="ph">PUBLIC HOLIDAY</option>
-                                            <option value="so">SATURDAY OFF</option>
-                                            <option value="tr">TECHNICAL BREAK</option>
-                                            @foreach ($shiftLists as $shiftList)
-                                                <option value="{{ $shiftList->id }}">{{ $shiftList->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @if ($errors->has($fieldName))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first($fieldName) }}</strong>
-                                            </span>
-                                        @endif
+                                        <button class="btn btn-primary" wire:click="saveShift({{$key}})">Save</button>
                                     </td>
-                                @endforeach
-                                <td>
-                                    <button class="btn btn-primary" wire:click="saveShift({{$key}})">Save</button>
-                                </td>
-                            </tr>
-                        @endforeach
-
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
