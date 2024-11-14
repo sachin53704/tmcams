@@ -496,7 +496,7 @@ class ReportController extends Controller
         ->leftjoin('clas', 'app_users.clas_id', '=', 'clas.id')
         ->where('app_users.is_employee', 1)
         ->orderBy('app_users.emp_code')
-        ->get(['app_users.*', 'contractors.name as contractorName', 'shifts.name as shiftName', 'wards.name as wardName', 'devices.DevicesName as devicesName', 'clas.name as clasName']);
+        ->get(['app_users.*', 'contractors.name as contractorName', 'shifts.name as shiftName', 'wards.name as wardName', 'Devices.DevicesName as devicesName', 'clas.name as clasName']);
         // dd($empList);
         return view('admin.reports.employee-list')->with(['empList' => $empList]);
     }
