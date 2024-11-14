@@ -211,7 +211,10 @@
             $holidaysArray = $holidays->pluck('date')->toArray();
             $absendDays = 0;
             if (!empty($emp->contractor)) {
-                $contractorName = DB::table('contractors')->where('id', $emp->contractor)->first(['name']);
+                $contractorData = DB::table('contractors')->where('id', $emp->contractor)->first(['name']);
+                $contractorName = $contractorData->name;
+            }else {
+                $contractorName = "NA";
             }
             $holidayCount = 0;
             $actualPresent = 0;
@@ -234,7 +237,7 @@
                     <th colspan="1" style="text-align: left; font-weight:700">DESIG : </th>
                     <th colspan="1" style="text-align: left"> {{ $emp->designation?->name }} </th>
                     <th colspan="1" style="text-align: left; font-weight:700">EMP TYPE : </th>
-                    <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({$contractorName->name})" : "Permanent" }}</th>
+                    <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({$contractorName})" : "Permanent" }}</th>
                     {{-- <th colspan="1" style="text-align: left; font-weight:700">CLASS : </th>
                     <th colspan="1" style="text-align: left">{{ $emp->clas?->name }}</th> --}}
                     <th colspan="1" style="text-align: left; font-weight:700">FROM DATE : </th>
