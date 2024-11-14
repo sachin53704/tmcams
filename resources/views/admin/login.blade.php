@@ -71,10 +71,12 @@
                                 <img src="{{ asset('assets/images/logo/logo.png') }}" alt="" style="height: 100px; width: auto" class="img-fluid">
 
                                 <h4 class="mt-3">ठाणे महानगरपालिका</h4>
+                                <h5 class="mt-3"><b>आरोग्य विभाग</b></h5>
+                                
                             </div>
                             @csrf
 
-                            <h4>Login</h4>
+                            <h5>Login</h5>
                             <h6>Welcome back! Log in to your account</h6>
                             <input type="hidden" value="{{ request()->device_type }}" name="device_type">
                             <div class="form-group">

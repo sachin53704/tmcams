@@ -8,7 +8,9 @@
         </div>
         <div class="nav-right col pull-right right-menu p-0">
             <ul class="nav-menus">
-
+                <li style="margin-right: 45%">
+                    <h3><b>आरोग्य विभाग</b></h3>
+                </li>
                 <li class="p-0">
                     <div id="clockdate">
                         <div class="clockdate-wrapper">
