@@ -244,6 +244,8 @@
                     <th colspan="1" style="text-align: left">{{ $fromDate ? \Carbon\Carbon::parse($fromDate)->format('d-m-Y') : 'N/A' }}</th>
                     <th colspan="1" style="text-align: left; font-weight:700">TO DATE : </th>
                     <th colspan="1" style="text-align: left">{{ $toDate ? \Carbon\Carbon::parse($toDate)->format('d-m-Y') : 'N/A' }}</th>
+                    <th colspan="1" style="text-align: left; font-weight:700"> </th>
+                    <th colspan="1" style="text-align: left"></th>
                 </tr>
             </thead>
         </table>
