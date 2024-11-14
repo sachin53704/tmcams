@@ -234,7 +234,7 @@
                     <th colspan="1" style="text-align: left; font-weight:700">DESIG : </th>
                     <th colspan="1" style="text-align: left"> {{ $emp->designation?->name }} </th>
                     <th colspan="1" style="text-align: left; font-weight:700">EMP TYPE : </th>
-                    <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({$contractorName->name ?? 'N/A'})" : "Permanent" }}</th>
+                    <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({{$contractorName->name}})" : "Permanent" }}</th>
                     {{-- <th colspan="1" style="text-align: left; font-weight:700">CLASS : </th>
                     <th colspan="1" style="text-align: left">{{ $emp->clas?->name }}</th> --}}
                     <th colspan="1" style="text-align: left; font-weight:700">FROM DATE : </th>
