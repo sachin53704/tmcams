@@ -120,7 +120,7 @@
                             </tr>
                         @else
                             <tr>
-                                <td colspan="8">No date ranges available.</td>
+                                <td colspan="8">No date ranges available. Please select date.</td>
                             </tr>
                         @endif
                     </thead>
