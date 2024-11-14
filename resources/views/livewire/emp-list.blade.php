@@ -37,12 +37,14 @@
                         <th style="min-width: 110px" wire:click="sorting('app_users.emp_code', '{{$order}}')" class="sortable {{ $column == 'app_users.emp_code' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Emp Id </span> <span class="arrow"></span> </th>
                         <th wire:click="sorting('app_users.name', '{{$order}}')" class="sortable {{ $column == 'app_users.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Name </span> <span class="arrow"></span> </th>
                         <th style="min-width: 160px" wire:click="sorting('departments.name', '{{$order}}')" class="sortable {{ $column == 'departments.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Department </span> <span class="arrow"></span> </th>
+                        <th style="min-width: 160px" scope="col"> <span class="custom_th">Employee Type </span> <span class="arrow"></span> </th>
+                        <th style="min-width: 160px" scope="col"> <span class="custom_th">Contractor Name </span> <span class="arrow"></span> </th>
                         {{-- <th style="min-width: 110px" wire:click="sorting('mobile', '{{$order}}')" class="sortable {{ $column == 'mobile' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Mobile </span> <span class="arrow"></span> </th> --}}
-                        <th style="min-width: 140px" wire:click="sorting('wards.name', '{{$order}}')" class="sortable {{ $column == 'wards.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Office </span> <span class="arrow"></span> </th>
+                        {{-- <th style="min-width: 140px" wire:click="sorting('wards.name', '{{$order}}')" class="sortable {{ $column == 'wards.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Office </span> <span class="arrow"></span> </th> --}}
                         <th style="min-width: 120px" scope="col">Details</th>
                         <th style="min-width: 90px" scope="col">Status</th>
                         <th style="min-width: 120px" scope="col">Removed/Working</th>
-                        <th style="min-width: 190px" wire:click="sorting('app_users.created_at', '{{$order}}')" class="sortable {{ $column == 'app_users.created_at' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Registered On </span> <span class="arrow"></span>  </th>
+                        {{-- <th style="min-width: 190px" wire:click="sorting('app_users.created_at', '{{$order}}')" class="sortable {{ $column == 'app_users.created_at' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Registered On </span> <span class="arrow"></span>  </th> --}}
                         <th style="min-width: 130px" scope="col">Action</th>
                     </tr>
                 </thead>
@@ -56,8 +58,18 @@
                             <td>{{ $emp->emp_code }}</td>
                             <td>{{ $emp->name }}</td>
                             <td>{{ $emp->department_name }}</td>
+                            <td>
+                                @if ($emp->employee_type == 0)
+                                    Contractual
+                                @else
+                                    Permanent
+                                @endif
+                            </td>
+                            <td>
+                                {{ $emp->contractor_name ?? 'NA' }}
+                            </td>
                             {{-- <td>{{ $emp->mobile }}</td> --}}
-                            <td>{{ $emp->ward_name }}</td>
+                            {{-- <td>{{ $emp->ward_name }}</td> --}}
                             <td>
                                 <button class="emp-more-info btn btn-primary px-2 py-1" title="More info" data-id="{{ $emp->id }}"><i class="fa fa-circle-info"></i></button>
                             </td>
@@ -76,9 +88,9 @@
                                     {{ $emp->deletedBy?->emp_code }} - {{ Str::limit($emp->deletedBy?->name, 20) }} - {{ $emp->deleted_at }}
                                 @endif
                             </td>
-                            <td>
+                            {{-- <td>
                                 {{ \Carbon\Carbon::parse($emp->created_at)->format('d M, y h:i:s') }}
-                            </td>
+                            </td> --}}
                             <td>
                                 @if ($emp->deleted_at == null)
                                     <button class="edit-element btn btn-success px-2 py-1" title="Edit Employee" data-id="{{ $emp->id }}"><i class="fa fa-pencil"></i></button>
