@@ -492,7 +492,7 @@ class ReportController extends Controller
         ->leftjoin('contractors', 'app_users.contractor', '=', 'contractors.id')
         ->leftjoin('shifts', 'app_users.shift_id', '=', 'shifts.id')
         ->leftjoin('wards', 'app_users.ward_id', '=', 'wards.id')
-        ->leftjoin('devices', 'app_users.device_id', '=', 'devices.DeviceId')
+        ->leftjoin('Devices', 'app_users.device_id', '=', 'Devices.DeviceId')
         ->leftjoin('clas', 'app_users.clas_id', '=', 'clas.id')
         ->where('app_users.is_employee', 1)
         ->orderBy('app_users.emp_code')
