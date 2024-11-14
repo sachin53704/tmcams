@@ -159,6 +159,7 @@
                                 <i data-feather="layout"></i><span>Reports</span>
                             </a>
                             <ul class="nav-submenu menu-content">
+                                <li><a href="{{ route('reports.employee-report') }}">Employee report </a></li>
                                 @can('reports.month-wise')
                                     <li><a href="{{ route('reports.index') }}">Month wise report </a></li>
                                 @endcan

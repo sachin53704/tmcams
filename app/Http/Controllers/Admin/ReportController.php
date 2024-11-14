@@ -483,4 +483,21 @@ class ReportController extends Controller
 
         return view('admin.reports.device-wise-report')->with(['data' => $data, 'isAdmin' => $isAdmin, 'devices' => $devices]);
     }
+
+    public function employeeReport(Request $request)
+    {
+        $authUser = Auth::user();
+        $empList = User::whereNot('app_users.id', $authUser->id)
+        ->with(['department', 'shift','designation'])
+        ->leftjoin('contractors', 'app_users.contractor', '=', 'contractors.id')
+        ->leftjoin('shifts', 'app_users.shift_id', '=', 'shifts.id')
+        ->leftjoin('wards', 'app_users.ward_id', '=', 'wards.id')
+        ->leftjoin('devices', 'app_users.device_id', '=', 'devices.DeviceId')
+        ->leftjoin('clas', 'app_users.clas_id', '=', 'clas.id')
+        ->where('app_users.is_employee', 1)
+        ->orderBy('app_users.emp_code')
+        ->get(['app_users.*', 'contractors.name as contractorName', 'shifts.name as shiftName', 'wards.name as wardName', 'devices.DevicesName as devicesName', 'clas.name as clasName']);
+        // dd($empList);
+        return view('admin.reports.employee-list')->with(['empList' => $empList]);
+    }
 }
