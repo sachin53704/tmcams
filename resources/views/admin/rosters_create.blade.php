@@ -13,7 +13,7 @@
                         <div class="card">
 
                             <div class="card-header pb-0">
-                                <h3>Add Shift</h3>
+                                <h3>Add Shift <br> <small class="text-danger">*Shows Only Rotational Employee Id's</small></h3>
                             </div>
 
                             <div class="card-body">

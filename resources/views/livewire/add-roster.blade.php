@@ -49,10 +49,10 @@
                         <input id="radioinline1" type="radio" name="is_department" wire:click="$set('is_department', '1')" value="1">
                         <label class="mb-0" for="radioinline1">Department</label>
                     </div>
-                    <div class="radio radio-primary">
+                    {{-- <div class="radio radio-primary">
                         <input id="radioinline2" type="radio" name="is_department" wire:click="$set('is_department', '2')" value="2">
                         <label class="mb-0" for="radioinline2">Designation</label>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -41,7 +41,7 @@
             </select>
         </div>
 
-        <div class="col-3">
+        {{-- <div class="col-3">
             <label class="form-label mb-0" for="">Designation</label>
             <select name="" class="form-control" wire:model="designation_id">
                 <option value="">Select Designation</option>
@@ -49,7 +49,7 @@
                     <option value="{{$designation->id}}">{{ $designation->name }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
 
     </div>
 
