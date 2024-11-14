@@ -232,10 +232,10 @@
                     <th colspan="1" style="text-align: left">{{ $emp->ward?->name }}</th> --}}
                     <th colspan="1" style="text-align: left; font-weight:700">DEPARTMENT : </th>
                     <th colspan="1" style="text-align: left">{{ $emp->department?->name }}</th>
-                </tr>
-                <tr style="border-bottom: 1px solid #ccc">
                     <th colspan="1" style="text-align: left; font-weight:700">DESIG : </th>
                     <th colspan="1" style="text-align: left"> {{ $emp->designation?->name }} </th>
+                </tr>
+                <tr style="border-bottom: 1px solid #ccc">
                     <th colspan="1" style="text-align: left; font-weight:700">EMP TYPE : </th>
                     <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({$contractorName})" : "Permanent" }}</th>
                     {{-- <th colspan="1" style="text-align: left; font-weight:700">CLASS : </th>
