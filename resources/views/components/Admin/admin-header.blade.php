@@ -8,8 +8,8 @@
         </div>
         <div class="nav-right col pull-right right-menu p-0">
             <ul class="nav-menus">
-                <li style="margin-right: 45%">
-                    <h3><b>आरोग्य विभाग</b></h3>
+                <li style="margin-right: 50%">
+                    <h5><b>आरोग्य विभाग</b></h5>
                 </li>
                 <li class="p-0">
                     <div id="clockdate">
