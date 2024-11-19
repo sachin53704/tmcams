@@ -31,7 +31,8 @@ class EmpList extends Component
                             ->with(['subDepartment', 'department', 'ward'])
                             ->leftJoin('wards', 'app_users.ward_id', '=', 'wards.id')
                             ->leftJoin('departments', 'app_users.department_id', '=', 'departments.id')
-                            ->select('app_users.*', 'wards.name as ward_name', 'departments.name as department_name')
+                            ->leftJoin('contractors', 'app_users.contractor', '=', 'contractors.id')
+                            ->select('app_users.*', 'wards.name as ward_name', 'departments.name as department_name', 'contractors.name as contractor_name')
                             ->where('app_users.tenant_id', $authUser->tenant_id)
                             ->when( !$authUser->hasRole(['Admin', 'Super Admin']), fn($q)=> $q->where('app_users.department_id', $authUser->department_id) )
                             ->orderBy($this->column, $this->order),

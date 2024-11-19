@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-sm-12">
 
-                        <h3>Shift Roster</h3>
+                        <h3>Shift Roster <br> <small class="text-danger">*Shows Only Rotational Employee Id's</small></h3>
 
                     </div>
                     <div class="col-sm-6">

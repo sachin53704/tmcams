@@ -69,6 +69,7 @@ Route::middleware(['auth','PreventBackHistory'])->group(function()
     Route::resource('leaves', App\Http\Controllers\Admin\Masters\LeaveController::class );
     Route::resource('shifts', App\Http\Controllers\Admin\Masters\ShiftController::class );
     Route::resource('devices', App\Http\Controllers\Admin\Masters\DeviceController::class );
+    Route::resource('contractors', App\Http\Controllers\Admin\Masters\ContractorController::class );
 
 
     // Users Roles n Permissions
@@ -119,6 +120,7 @@ Route::middleware(['auth','PreventBackHistory'])->group(function()
     Route::get('month_wise_absent', [App\Http\Controllers\Admin\ReportController::class, 'monthWiseAbsent'])->name('dashboard.month-wise-absent');
     Route::get('employee_wise_report', [App\Http\Controllers\Admin\ReportController::class, 'employeeWiseReport'])->name('dashboard.employee-wise-report');
     Route::get('device-wise-report', [App\Http\Controllers\Admin\ReportController::class, 'deviceWiseReport'])->name('reports.device-wise-report');
+    Route::get('employee-report', [App\Http\Controllers\Admin\ReportController::class, 'employeeReport'])->name('reports.employee-report');
 
 
 });

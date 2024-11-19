@@ -73,8 +73,8 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="employee_type">Employee Type </label>
-                                            <select class="js-example-basic-single col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type">
+                                            <label class="col-form-label" for="employee_type">Employee Type <span class="text-danger">*</span></label>
+                                            <select class="form-control col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type" id="employee_type" required>
                                                 <option value="">--Select Employee Type--</option>
                                                 <option value="0" {{ request()->employee_type == "0" ? 'selected' : '' }}>Contractual</option>
                                                 <option value="1" {{ request()->employee_type == "1" ? 'selected' : '' }}>Permanent</option>
@@ -84,6 +84,17 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+
+                                        <div class="col-md-3 mt-3 @if(request()->contractor) {{ '' }} @else {{ 'd-none' }} @endif" id="contractor_div">
+                                            <label class="col-form-label" for="contractor">Contractor</label>
+                                            <select class="form-control" name="contractor" id="contractor">
+                                                <option value="">Select Contractor</option>
+                                                @foreach ($contractors as $contractor)
+                                                    <option value="{{ $contractor->id }}" {{ request()->contractor == $contractor->id ? 'selected' : '' }} >{{ $contractor->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text contractor_err"></span>
                                         </div>
 
                                     </div>
@@ -253,6 +264,19 @@
             }
         });
 
+    });
+</script>
+
+<script>
+    document.getElementById('employee_type').addEventListener('change', function() {
+        var employeeType = this.value;
+        var contractorDiv = document.getElementById('contractor_div');
+        
+        if (employeeType == "0") {
+            contractorDiv.classList.remove('d-none');
+        } else {
+            contractorDiv.classList.add('d-none');
+        }
     });
 </script>
 

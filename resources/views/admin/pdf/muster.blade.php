@@ -189,7 +189,7 @@
     @endphp
     <!-- Table -->
     <h2 style="text-align: center; margin-top: 10px;" >Thane Municipal Corporation</h2>
-    <h5 style="text-align: center; margin-top: 5px; font-size:16px" >Muster Report for the month of {{ Carbon\Carbon::parse($toDate)->format('F Y') }}</h5>
+    <h5 style="text-align: center; margin-top: 5px; font-size:16px" >Health Department Muster Report for the month of {{ Carbon\Carbon::parse($toDate)->format('F Y') }}</h5>
 
     <div style="margin-bottom: 5px">
         <h4 style="text-align:left; margin-left: 15px; display:inline-block; float: left">
@@ -210,6 +210,12 @@
             $outpostLeaves = $emp->punches->where('leave_type_id', '2')->count();
             $holidaysArray = $holidays->pluck('date')->toArray();
             $absendDays = 0;
+            if (!empty($emp->contractor)) {
+                $contractorData = DB::table('contractors')->where('id', $emp->contractor)->first(['name']);
+                $contractorName = $contractorData->name;
+            }else {
+                $contractorName = "NA";
+            }
             $holidayCount = 0;
             $actualPresent = 0;
             $latemarkGraceTime = $emp->is_divyang == 'y' ? $settings['LATE_MARK_TIMING_DIVYANG'] : $settings['LATE_MARK_TIMING'];
@@ -222,20 +228,24 @@
                     <th colspan="1" style="text-align: left">{{ Carbon\Carbon::parse($toDate)->format('F') }}</th>
                     <th colspan="1" style="text-align: left; font-weight:700">NAME : </th>
                     <th colspan="1" style="text-align: left">{{ $emp->name }}</th>
-                    <th colspan="1" style="text-align: left; font-weight:700">OFFICE : </th>
-                    <th colspan="1" style="text-align: left">{{ $emp->ward?->name }}</th>
+                    {{-- <th colspan="1" style="text-align: left; font-weight:700">OFFICE : </th>
+                    <th colspan="1" style="text-align: left">{{ $emp->ward?->name }}</th> --}}
                     <th colspan="1" style="text-align: left; font-weight:700">DEPARTMENT : </th>
                     <th colspan="1" style="text-align: left">{{ $emp->department?->name }}</th>
+                    <th colspan="1" style="text-align: left; font-weight:700">DESIG : </th>
+                    <th colspan="1" style="text-align: left"> {{ $emp->designation?->name }} </th>
                 </tr>
                 <tr style="border-bottom: 1px solid #ccc">
-                    <th colspan="1" style="text-align: left; font-weight:700">DESIGNATION : </th>
-                    <th colspan="1" style="text-align: left"> {{ $emp->designation?->name }} </th>
-                    <th colspan="1" style="text-align: left; font-weight:700">CLASS : </th>
-                    <th colspan="1" style="text-align: left">{{ $emp->clas?->name }}</th>
+                    <th colspan="1" style="text-align: left; font-weight:700">EMP TYPE : </th>
+                    <th colspan="1" style="text-align: left">{{ ($emp->employee_type == 0) ? "Contractual ({$contractorName})" : "Permanent" }}</th>
+                    {{-- <th colspan="1" style="text-align: left; font-weight:700">CLASS : </th>
+                    <th colspan="1" style="text-align: left">{{ $emp->clas?->name }}</th> --}}
                     <th colspan="1" style="text-align: left; font-weight:700">FROM DATE : </th>
-                    <th colspan="1" style="text-align: left">{{ $fromDate }}</th>
+                    <th colspan="1" style="text-align: left">{{ $fromDate ? \Carbon\Carbon::parse($fromDate)->format('d-m-Y') : 'N/A' }}</th>
                     <th colspan="1" style="text-align: left; font-weight:700">TO DATE : </th>
-                    <th colspan="1" style="text-align: left">{{ $toDate }}</th>
+                    <th colspan="1" style="text-align: left">{{ $toDate ? \Carbon\Carbon::parse($toDate)->format('d-m-Y') : 'N/A' }}</th>
+                    <th colspan="1" style="text-align: left; font-weight:700"> </th>
+                    <th colspan="1" style="text-align: left"></th>
                 </tr>
             </thead>
         </table>

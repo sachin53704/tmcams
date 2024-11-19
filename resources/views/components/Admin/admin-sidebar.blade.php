@@ -31,6 +31,9 @@
                                 @can('departments.view')
                                     <li><a href="{{ route('departments.index') }}">Departments </a></li>
                                 @endcan
+                                @can('contractors.view')
+                                    <li><a href="{{ route('contractors.index') }}">Contractors </a></li>
+                                @endcan
                                 @can('designations.view')
                                     <li><a href="{{ route('designations.index') }}">Designations </a></li>
                                 @endcan
@@ -156,6 +159,7 @@
                                 <i data-feather="layout"></i><span>Reports</span>
                             </a>
                             <ul class="nav-submenu menu-content">
+                                <li><a href="{{ route('reports.employee-report') }}">Employee report </a></li>
                                 @can('reports.month-wise')
                                     <li><a href="{{ route('reports.index') }}">Month wise report </a></li>
                                 @endcan

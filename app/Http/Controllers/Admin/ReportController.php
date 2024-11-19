@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Clas;
 use App\Models\Department;
+use App\Models\Contractor;
 use App\Models\Designation;
 use App\Models\DeviceLogsProcessed;
 use App\Models\Holiday;
@@ -37,6 +38,7 @@ class ReportController extends Controller
                         ->where('tenant_id', auth()->user()->tenant_id)
                         ->when( !$authUser->hasRole(['Admin', 'Super Admin']), fn($qr)=> $qr->where('id', $authUser->department_id) )
                         ->orderBy('name')->get();
+        $contractors = Contractor::latest()->get();
 
         $wards = Ward::where('tenant_id', auth()->user()->tenant_id)->orderBy('name')->get();
         $class = Clas::orderBy('name')->get();
@@ -65,6 +67,7 @@ class ReportController extends Controller
                         ->when($request->ward, fn($qr)=> $qr->where('ward_id', $request->ward))
                         ->when($request->class, fn($qr)=> $qr->where('clas_id', $request->class))
                         ->when($request->employee_type, fn($qr)=> $qr->where('employee_type', $request->employee_type))
+                        ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         ->when($request->designation, fn($qr)=> $qr->where('designation_id', $request->designation))
                         ->get();
 
@@ -74,7 +77,7 @@ class ReportController extends Controller
             $totalDays = Carbon::parse($fromDate)->diffInDays($toDate)+1;
             $dateRanges = CarbonPeriod::create( Carbon::parse($fromDate), Carbon::parse($toDate) )->toArray();
         }
-        return view('admin.reports.month-wise-report')->with(['dateRanges'=> $dateRanges, 'otherLeavesArray'=> $otherLeavesArray, 'empList'=> $empList, 'departments'=> $departments, 'holidays'=> $holidays, 'settings'=> $settings, 'leaveTypes'=> $leaveTypes, 'wards'=> $wards, 'class'=> $class, 'fromDate'=> $fromDate, 'toDate'=> $toDate, 'totalDays'=> $totalDays, 'designations'=> $designations]);
+        return view('admin.reports.month-wise-report')->with(['dateRanges'=> $dateRanges, 'otherLeavesArray'=> $otherLeavesArray, 'empList'=> $empList, 'departments'=> $departments, 'holidays'=> $holidays, 'settings'=> $settings, 'leaveTypes'=> $leaveTypes, 'wards'=> $wards, 'class'=> $class, 'fromDate'=> $fromDate, 'toDate'=> $toDate, 'totalDays'=> $totalDays, 'designations'=> $designations, 'contractors' => $contractors]);
     }
 
 
@@ -85,6 +88,7 @@ class ReportController extends Controller
                             ->where('tenant_id', auth()->user()->tenant_id)
                             ->when( !$authUser->hasRole(['Admin', 'Super Admin']), fn($qr)=> $qr->where('id', $authUser->department_id) )
                             ->orderBy('name')->get();
+        $contractors = Contractor::latest()->get();
 
         $wards = Ward::where('tenant_id', auth()->user()->tenant_id)->latest()->get();
         $class = Clas::latest()->get();
@@ -103,7 +107,7 @@ class ReportController extends Controller
         if( $request->month )
         {
             $empList = User::whereNot('id', $authUser->id)
-                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'employee_type', 'name', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang','is_half_day_on_saturday')
+                    ->select('id', 'ward_id', 'department_id', 'emp_code', 'in_time', 'employee_type', 'name', 'contractor', 'shift_id', 'clas_id', 'designation_id', 'is_rotational', 'is_ot', 'is_divyang','is_half_day_on_saturday')
                     ->with('punches', fn($q) => $q
                         ->whereBetween('punch_date', [$fromDate, $toDate] )
                         ->select('id', 'emp_code', 'check_in', 'check_out', 'punch_date', 'is_latemark', 'type', 'leave_type_id', 'is_paid', 'duration', 'punch_by')
@@ -119,6 +123,7 @@ class ReportController extends Controller
                     ->when(!$request->emp_code && $request->class, fn($qr)=> $qr->where('clas_id', $request->class ))
                     ->when(!$request->emp_code && $request->designation, fn($qr)=> $qr->where('designation_id', $request->designation))
                     ->when($request->employee_type, fn($qr)=> $qr->where('employee_type', $request->employee_type))
+                    ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                     ->when($request->emp_code, fn($qr)=> $qr->where('emp_code', $request->emp_code))
                     ->get();
 
@@ -160,7 +165,7 @@ class ReportController extends Controller
             }
         }
 
-        return view('admin.reports.muster-report')->with([ 'errorMessage'=> $errorMessage, 'empList'=> $empList, 'holidays'=> $holidays, 'settings'=> $settings, 'leaveTypes'=> $leaveTypes, 'departments'=> $departments, 'designations'=> $designations, 'wards'=> $wards, 'class'=> $class, 'fromDate'=> $fromDate, 'toDate'=> $toDate, 'totalDays'=> $totalDays]);
+        return view('admin.reports.muster-report')->with([ 'errorMessage'=> $errorMessage, 'empList'=> $empList, 'holidays'=> $holidays, 'settings'=> $settings, 'leaveTypes'=> $leaveTypes, 'departments'=> $departments, 'designations'=> $designations, 'wards'=> $wards, 'class'=> $class, 'fromDate'=> $fromDate, 'toDate'=> $toDate, 'totalDays'=> $totalDays, 'contractors' => $contractors]);
     }
 
 
@@ -247,23 +252,24 @@ class ReportController extends Controller
                                 ->where('tenant_id', auth()->user()->tenant_id)
                                 ->when( !$authUser->hasRole(['Admin', 'Super Admin']), fn($qr)=> $qr->where('id', $authUser->department_id) )
                                 ->orderBy('name')->get();
-
+        $contractors = Contractor::latest()->get();
         $wards = Ward::where('tenant_id', auth()->user()->tenant_id)->orderBy('name')->get();
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
 
         $data = Punch::withWhereHas(
-                        'user', fn($qr)=> $qr->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type' )
+                        'user', fn($qr)=> $qr->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type', 'contractor' )
                                 ->with('device:DeviceId,DeviceLocation', 'ward', 'clas')
                                 ->when( $selectedDepartmentId, fn($q)=> $q->where('department_id', $selectedDepartmentId) )
                                 ->when( $request->ward, fn($q)=> $q->where('ward_id', $request->ward) )
                                 ->when( $request->employee_type, fn($q)=> $q->where('employee_type', $request->employee_type) )
+                                ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         )
                         ->when($request->before, fn($q)=> $q->whereTime('check_in', '<=', $request->before)->whereTime('check_in', '>=', '01:00:00'))
                         ->when($request->after, fn($q)=> $q->whereTime('check_in', '>=', $request->after)->whereTime('check_in', '<=', '24:00:00'))
                         ->whereDate('punch_date', Carbon::parse($request->date)->toDateString() ?? Carbon::today()->toDateString() )
                         ->orderByDesc('id')->get();
 
-        return view('admin.dashboard.todays-present-report')->with(['data'=> $data, 'wards'=> $wards, 'isAdmin'=> $isAdmin, 'departments'=> $departments]);
+        return view('admin.dashboard.todays-present-report')->with(['data'=> $data, 'wards'=> $wards, 'isAdmin'=> $isAdmin, 'departments'=> $departments, 'contractors' => $contractors]);
     }
 
     public function todaysAbsentReport(Request $request)
@@ -277,20 +283,22 @@ class ReportController extends Controller
 
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
         $wards = Ward::where('tenant_id', auth()->user()->tenant_id)->orderBy('name')->get();
+        $contractors = Contractor::latest()->get();
 
         $date = $request->date ? Carbon::parse($request->date)->toDateString() : Carbon::today()->toDateString();
 
         $data = User::whereDoesntHave( 'punches', fn($q)=> $q->whereDate('punch_date', $date ) )
-                        ->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name' )
+                        ->select('id', 'device_id', 'ward_id', 'department_id', 'emp_code', 'name', 'employee_type', 'contractor' )
                         ->whereIsEmployee('1')
                         ->where('tenant_id', $authUser->tenant_id)
                         ->with('ward', 'shift', 'clas')
                         ->when( $selectedDepartmentId, fn($q)=> $q->where('department_id', $selectedDepartmentId) )
                         ->when( $request->ward, fn($q)=> $q->where('ward_id', $request->ward) )
                         ->when( $request->employee_type, fn($q)=> $q->where('employee_type', $request->employee_type) )
+                        ->when($request->contractor, fn($qr)=> $qr->where('contractor', $request->contractor))
                         ->get();
 
-        return view('admin.dashboard.todays-absent-report')->with(['data'=> $data, 'wards'=> $wards, 'isAdmin'=> $isAdmin, 'departments'=> $departments]);
+        return view('admin.dashboard.todays-absent-report')->with(['data'=> $data, 'wards'=> $wards, 'isAdmin'=> $isAdmin, 'departments'=> $departments, 'contractors' => $contractors]);
     }
 
     public function shiftWiseEmployees(Request $request, $shiftId)
@@ -474,5 +482,22 @@ class ReportController extends Controller
 
 
         return view('admin.reports.device-wise-report')->with(['data' => $data, 'isAdmin' => $isAdmin, 'devices' => $devices]);
+    }
+
+    public function employeeReport(Request $request)
+    {
+        $authUser = Auth::user();
+        $empList = User::whereNot('app_users.id', $authUser->id)
+        ->with(['department', 'shift','designation'])
+        ->leftjoin('contractors', 'app_users.contractor', '=', 'contractors.id')
+        ->leftjoin('shifts', 'app_users.shift_id', '=', 'shifts.id')
+        ->leftjoin('wards', 'app_users.ward_id', '=', 'wards.id')
+        ->leftjoin('Devices', 'app_users.device_id', '=', 'Devices.DeviceId')
+        ->leftjoin('clas', 'app_users.clas_id', '=', 'clas.id')
+        ->where('app_users.is_employee', 1)
+        ->orderBy('app_users.emp_code')
+        ->get(['app_users.*', 'contractors.name as contractorName', 'shifts.name as shiftName', 'wards.name as wardName', 'Devices.DevicesName as devicesName', 'clas.name as clasName']);
+        // dd($empList);
+        return view('admin.reports.employee-list')->with(['empList' => $empList]);
     }
 }

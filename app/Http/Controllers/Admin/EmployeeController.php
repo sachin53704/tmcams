@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\StoreEmployeeRequest;
 use App\Http\Requests\Admin\UpdateEmployeeRequest;
 use App\Models\Clas;
 use App\Models\Department;
+use App\Models\Contractor;
 use App\Models\Designation;
 use App\Models\Device;
 use App\Models\Shift;
@@ -42,12 +43,13 @@ class EmployeeController extends Controller
         $wards = Ward::where('tenant_id', auth()->user()->tenant_id)->latest()->get();
         $departments = Department::whereDepartmentId(null)->where('tenant_id', auth()->user()->tenant_id)->orderBy('name')->get();
         $designations = Designation::latest()->get();
+        $contractors = Contractor::latest()->get();
         $clas = Clas::latest()->get();
         $shifts = Shift::latest()->get();
         $devices = Device::orderByDesc('DeviceId')->get();
 
 
-        return view('admin.add-employees')->with(['wards'=> $wards, 'departments'=> $departments, 'designations'=> $designations, 'clas'=> $clas, 'shifts'=> $shifts, 'devices'=>$devices]);
+        return view('admin.add-employees')->with(['wards'=> $wards, 'departments'=> $departments, 'designations'=> $designations, 'clas'=> $clas, 'shifts'=> $shifts, 'devices'=>$devices, 'contractors'=>$contractors]);
     }
 
     /**

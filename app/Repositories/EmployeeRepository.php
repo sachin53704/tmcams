@@ -9,6 +9,7 @@ use App\Models\Device;
 use App\Models\Shift;
 use App\Models\User;
 use App\Models\Ward;
+use App\Models\Contractor;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,7 @@ class EmployeeRepository
         $class = Clas::latest()->get();
         $designations = Designation::latest()->get();
         $shifts = Shift::latest()->get();
+        $contractors = Contractor::latest()->get();
 
         if ($user)
         {
@@ -102,6 +104,14 @@ class EmployeeRepository
                 endforeach;
             $shiftHtml .= '</span>';
 
+            $contractorHtml = '<span>
+                <option value="">--Select Contractor --</option>';
+                foreach($contractors as $contractor):
+                    $is_select = $contractor->id == $user->contractor ? "selected" : "";
+                    $contractorHtml .= '<option value="'.$contractor->id.'" '.$is_select.'>'.$contractor->name.'</option>';
+                endforeach;
+            $contractorHtml .= '</span>';
+
             $response = [
                 'result' => 1,
                 'user' => $user,
@@ -112,6 +122,7 @@ class EmployeeRepository
                 'clasHtml' => $clasHtml,
                 'designationHtml' => $designationHtml,
                 'shiftHtml' => $shiftHtml,
+                'contractorHtml' => $contractorHtml,
             ];
         }
         else
