@@ -270,7 +270,7 @@
                                     @foreach ($totalWards as $totalWard)
                                         @php
                                             $currentWardData = $todayPunchData->where( fn($item) => $item->user->ward_id == $totalWard->id );
-                                            $currentWardData = $currentWardData->where( fn($item) => $item->user->department_id == request()->department );
+                                            $currentWardData = $currentWardData->where( fn($item) => $item->user?->department_id == request()->department );
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                             <div class="card custom-card rounded">
@@ -319,7 +319,7 @@
                                         @php
                                             $currentDeptData = $todayPunchData
                                                             // ->where( fn($item) => $item->user->ward_id == request()->ward )
-                                                            ->where( fn($item) => $item->user->department_id == $department->id );
+                                                            ->where( fn($item) => $item->user?->department_id == $department->id );
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                             <div class="card custom-card rounded">
