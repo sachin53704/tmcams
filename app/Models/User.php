@@ -19,7 +19,7 @@ class User extends Authenticatable
 
     protected $table = 'app_users';
 
-    protected $appends = [ 'tenant_name', 'gender_text' ];
+    protected $appends = ['tenant_name', 'gender_text'];
     /**
      * The attributes that are mass assignable.
      *
@@ -99,7 +99,7 @@ class User extends Authenticatable
 
     public function getTenantNameAttribute()
     {
-        return $this->tenant->name;
+        return $this->tenant?->name;
     }
 
     public function department()
@@ -176,33 +176,26 @@ class User extends Authenticatable
 
     public static function booted()
     {
-        static::created(function (self $user)
-        {
-            if(Auth::check())
-            {
+        static::created(function (self $user) {
+            if (Auth::check()) {
                 self::where('id', $user->id)->update([
-                    'created_by'=> Auth::user()->id,
+                    'created_by' => Auth::user()->id,
                 ]);
             }
         });
-        static::updated(function (self $user)
-        {
-            if(Auth::check())
-            {
+        static::updated(function (self $user) {
+            if (Auth::check()) {
                 self::where('id', $user->id)->update([
-                    'updated_by'=> Auth::user()->id,
+                    'updated_by' => Auth::user()->id,
                 ]);
             }
         });
-        static::deleting(function (self $user)
-        {
-            if(Auth::check())
-            {
+        static::deleting(function (self $user) {
+            if (Auth::check()) {
                 $user->update([
-                    'deleted_by'=> Auth::user()->id,
+                    'deleted_by' => Auth::user()->id,
                 ]);
             }
         });
     }
-
 }

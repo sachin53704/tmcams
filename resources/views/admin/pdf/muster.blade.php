@@ -287,6 +287,11 @@
                     }
 
                     $hasPunch = $emp->punches->where('punch_date', '>=', $currentDate)->where('punch_date', '<', $nextDate)->first();
+                    
+                    if(!$hasPunch && $hasShift && $hasShift->to_date == $nextDate){
+                        $hasPunch = $emp->punches->where('check_in', '>=', Carbon\Carbon::parse($hasShift->from_date." ". $hasShift->in_time)->subHour(5))->first();
+                    }
+                    
                     $hasLeaveApplied = $emp->punches->where('punch_date', '>=', $currentDate)->where('punch_date', '<', $nextDate)->where('leave_type_id', '!=', null)->first();
                 @endphp
 
@@ -413,7 +418,25 @@
                                         <span>{{ Carbon\Carbon::parse($hasPunch->check_in)->format('h:i A') }}</span>
                                     </div>
                                     <div class="row_cell">
-                                        <span>{{ $hasPunch->check_out ? ( Carbon\Carbon::parse($hasPunch->check_out)->gt(Carbon\Carbon::parse($hasPunch->check_in)->addMinutes(5)) ? Carbon\Carbon::parse($hasPunch->check_out)->format('h:i A') : '-' ) : '-' }}</span>
+                                        @php
+                                            $checkOutTime = "";
+                                            if(!$hasPunch->check_out){
+                                                if($emp->is_rotational){
+                                                    if($hasShift){
+                                                        $hasPunchs = $emp->punches->where('check_in', '>=', $hasShift->from_date." ". $hasShift->shift?->to_time)
+                                                        ->where('check_in', '<=', Carbon\Carbon::parse($hasShift->from_date." ". $hasShift->shift?->to_time)->addHour(5)->format('Y-m-d H:i:s'))->first();
+                                                        $checkOutTime = ($hasPunchs->check_in) ? Carbon\Carbon::parse($hasPunchs->check_in)->format('h:i A') : '-';
+                                                    }
+                                                }else{
+                                                    if($emp->shift){
+                                                        $hasPunchs = $emp->punches->where('check_in', '>=', $hasPunch->punch_date." ". $emp->shift?->to_time)
+                                                        ->where('check_in', '<=', Carbon\Carbon::parse($hasPunch->punch_date." ". $emp->shift?->to_time)->addHour(5)->format('Y-m-d H:i:s'))->first();
+                                                        $checkOutTime = ($hasPunchs->check_in) ? Carbon\Carbon::parse($hasPunchs->check_in)->format('h:i A') : '-';
+                                                    }
+                                                }
+                                            }
+                                        @endphp
+                                        <span>{{ $hasPunch->check_out ? ( Carbon\Carbon::parse($hasPunch->check_out)->gt(Carbon\Carbon::parse($hasPunch->check_in)->addMinutes(5)) ? Carbon\Carbon::parse($hasPunch->check_out)->format('h:i A') : '-' ) : $checkOutTime }}</span>
                                     </div>
                                     <div class="row_cell bg-grey">
                                         <span>{{ $hasPunch->duration_in_minute }}</span>

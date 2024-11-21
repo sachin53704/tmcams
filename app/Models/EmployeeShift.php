@@ -9,10 +9,15 @@ class EmployeeShift extends BaseModel
 {
     use HasFactory;
 
-    protected $fillable = [ 'user_id', 'shift_id', 'emp_code', 'from_date', 'to_date', 'in_time', 'weekday', 'is_night' ];
+    protected $fillable = ['user_id', 'shift_id', 'emp_code', 'from_date', 'to_date', 'in_time', 'weekday', 'is_night'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
     }
 }
