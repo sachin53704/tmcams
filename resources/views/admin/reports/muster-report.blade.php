@@ -120,8 +120,8 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="employee_type">Employee Type <span class="text-danger">*</span></label>
-                                            <select class="form-control col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type" id="employee_type" required>
+                                            <label class="col-form-label" for="employee_type">Employee Type </label>
+                                            <select class="form-control col-sm-12  @error('employee_type') is-invalid  @enderror" name="employee_type" id="employee_type">
                                                 <option value="">--Select Employee Type--</option>
                                                 <option value="0" {{ request()->employee_type == "0" ? 'selected' : '' }}>Contractual</option>
                                                 <option value="1" {{ request()->employee_type == "1" ? 'selected' : '' }}>Permanent</option>

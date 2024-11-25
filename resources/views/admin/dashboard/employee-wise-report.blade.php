@@ -12,7 +12,7 @@
 
                         <div class="card">
                             <form class="theme-form" id="addForm" method="GET" action="{{ route('dashboard.employee-wise-report') }}">
-                                @csrf
+                             
                                 <div class="card-body pt-0">
 
                                     <div class="mb-3 row">
@@ -111,7 +111,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $emp->emp_code }}</td>
-                                                    <td>{{ $emp->user->name }}</td>
+                                                    <td>{{ $emp->user?->name }}</td>
                                                     <td>{{ $emp->device?->DeviceLocation }}</td>
                                                     <td>{{ $emp->device?->SerialNumber}}</td>
                                                     {{-- <td>{{ $emp->device->DeviceLocation }}</td> --}}

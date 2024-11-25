@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 use function App\Helpers\caseMatchTable;
 
-class SyncDeviceLogsBak extends Command
+class SyncDeviceLogs_bak extends Command
 {
     public $updatableId;
     /**
@@ -18,7 +18,7 @@ class SyncDeviceLogsBak extends Command
      *
      * @var string
      */
-    protected $signature = 'punches:sync-device-logs';
+    protected $signature = 'punches:sync-device-logs1';
 
     /**
      * The console command description.
@@ -36,47 +36,46 @@ class SyncDeviceLogsBak extends Command
         $this->updatableId = $latestId;
         $timeStamp = Carbon::now()->toDateTimeString();
 
-            DB::table(caseMatchTable('DeviceLogs_Processed'))
-                            ->where(caseMatchTable('DeviceLogId'), '>', $latestId)
-                            ->orderBy(caseMatchTable('DeviceLogId'))
-                            ->chunk(200, function($datas) use ($timeStamp){
-                                foreach($datas as $data)
-                                {
-                                    $punchDate = Carbon::parse($data->LogDate)->toDateString();
-                                    $punch = DB::table('punches')->where([ 'emp_code'=> $data->UserId, 'punch_date'=> $punchDate ])->first();
+        DB::table(caseMatchTable('DeviceLogs_Processed'))
+            ->where(caseMatchTable('DeviceLogId'), '>', $latestId)
+            ->orderBy(caseMatchTable('DeviceLogId'))
+            ->chunk(200, function ($datas) use ($timeStamp) {
+                foreach ($datas as $data) {
+                    $punchDate = Carbon::parse($data->LogDate)->toDateString();
+                    $punch = DB::table('punches')->where(['emp_code' => $data->UserId, 'punch_date' => $punchDate])->first();
 
-                                    Log::info($data->DeviceLogId);
-                                    if(!$punch)
-                                    {
-                                        DB::table('punches')->insert([
-                                            'emp_code'=> $data->UserId, 'check_in' => $data->LogDate, 'device_id'=> $data->DeviceId, 'punch_date'=> $punchDate, 'created_at'=> $timeStamp ]);
-                                    }
-                                    else
-                                    {
-                                        $checkIn = $punch->check_in;
-                                        $checkOut = $data->LogDate;
-                                        if(Carbon::parse($checkOut)->lt( Carbon::parse($checkIn) ) )
-                                        {
-                                            $temp = $checkIn;
-                                            $checkIn = $checkOut;
-                                            $checkOut = $temp;
-                                        }
-                                        $duration = Carbon::parse($checkIn)->diffInSeconds($checkOut);
-                                        DB::table('punches')
-                                                ->where(['emp_code'=> $data->UserId, 'punch_date'=> $punchDate])
-                                                ->update([
-                                                    'check_in'=> $checkIn,
-                                                    'check_out'=> $checkOut,
-                                                    'duration'=> $duration,
-                                                    'updated_at'=> $timeStamp,
-                                                ]);
-                                    }
-                                    $this->updatableId = $data->DeviceLogId;
-                                }
-                            });
+                    Log::info($data->DeviceLogId);
+                    if (!$punch) {
+                        DB::table('punches')->insert([
+                            'emp_code' => $data->UserId,
+                            'check_in' => $data->LogDate,
+                            'device_id' => $data->DeviceId,
+                            'punch_date' => $punchDate,
+                            'created_at' => $timeStamp
+                        ]);
+                    } else {
+                        $checkIn = $punch->check_in;
+                        $checkOut = $data->LogDate;
+                        if (Carbon::parse($checkOut)->lt(Carbon::parse($checkIn))) {
+                            $temp = $checkIn;
+                            $checkIn = $checkOut;
+                            $checkOut = $temp;
+                        }
+                        $duration = Carbon::parse($checkIn)->diffInSeconds($checkOut);
+                        DB::table('punches')
+                            ->where(['emp_code' => $data->UserId, 'punch_date' => $punchDate])
+                            ->update([
+                                'check_in' => $checkIn,
+                                'check_out' => $checkOut,
+                                'duration' => $duration,
+                                'updated_at' => $timeStamp,
+                            ]);
+                    }
+                    $this->updatableId = $data->DeviceLogId;
+                }
+            });
 
-            DB::table('last_synced_ids')->where('name', 'last_log_id')->update(['value'=> $this->updatableId, 'updated_at'=> $timeStamp]);
-            $this->info('Command executed successfully!');
+        DB::table('last_synced_ids')->where('name', 'last_log_id')->update(['value' => $this->updatableId, 'updated_at' => $timeStamp]);
+        $this->info('Command executed successfully!');
     }
-
 }

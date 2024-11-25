@@ -276,9 +276,23 @@
                     $nextDate = $clonedDate->addDay()->toDateString();
                     $hasPunch = 0;
                     $hasShift = 0;
+
+                    $hasPunch = $emp->punches->where('punch_date', '>=', $currentDate)->where('punch_date', '<', $nextDate)->first();
+                    
+                    if(!$hasPunch && $hasShift && $hasShift->to_date == $nextDate){
+                        $hasPunch = $emp->punches->where('check_in', '>=', Carbon\Carbon::parse($hasShift->from_date." ". $hasShift->in_time)->subHour(5))->first();
+                    }
+                    
                     if($emp->is_rotational == 0)
                     {
-                        if($dateRange->isWeekend()){ $isWeekOff = true; }
+                        if ($emp->is_half_day_on_saturday == 'y' && $dateRange->format('l') == "Saturday") {
+                            if($hasPunch && $hasPunch->duration < $settings['MIN_COMPLETION_HOUR_FOR_SAT_HALF_DAY']){
+                                $shortDays++;
+                            }
+                        }else{
+                            if($dateRange->isWeekend()){ $isWeekOff = true; }
+                        }
+
                     }
                     else
                     {
@@ -286,11 +300,7 @@
                         $isWeekOff = $hasShift && $hasShift->in_time == 'wo' ? true : false;
                     }
 
-                    $hasPunch = $emp->punches->where('punch_date', '>=', $currentDate)->where('punch_date', '<', $nextDate)->first();
                     
-                    if(!$hasPunch && $hasShift && $hasShift->to_date == $nextDate){
-                        $hasPunch = $emp->punches->where('check_in', '>=', Carbon\Carbon::parse($hasShift->from_date." ". $hasShift->in_time)->subHour(5))->first();
-                    }
                     
                     $hasLeaveApplied = $emp->punches->where('punch_date', '>=', $currentDate)->where('punch_date', '<', $nextDate)->where('leave_type_id', '!=', null)->first();
                 @endphp

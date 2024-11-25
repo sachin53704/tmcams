@@ -433,7 +433,7 @@ class ReportController extends Controller
                 ->where('emp_code', $request->emp_code)
                 ->get();
         }
-        // dd($data);
+
         return view('admin.dashboard.employee-wise-report')->with(['data' => $data]);
     }
 
