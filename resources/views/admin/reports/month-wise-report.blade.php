@@ -32,7 +32,7 @@
                                             <span class="text-danger error-text year_err"></span>
                                         </div>
 
-                                        <div class="col-md-3 mt-3">
+                                        {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="month">Select Month <span class="text-danger">*</span></label>
                                             <select class="col-sm-12 form-control @error('month') is-invalid  @enderror" value="{{ old('month') }}" required name="month">
                                                 <option value="">--Select Month--</option>
@@ -54,11 +54,12 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
+                                        <input type="hidden" name="month" value="1">
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="from_date">From Date <span class="text-danger">*</span> </label>
-                                            <input class="form-control" name="from_date" id="from_date" type="date" value="{{ request()->from_date }}" placeholder="From Date" readonly>
+                                            <input class="form-control" name="from_date" id="from_date" type="date" value="{{ request()->from_date }}" placeholder="From Date">
                                             <span class="text-danger error-text from_date_err"></span>
                                         </div>
 
@@ -462,6 +463,22 @@
             else
             {
             alert("please select month");
+            }
+        });
+
+
+        $('#from_date').change(function(e){
+            let fromDate = $(this).val();
+            if (fromDate) {
+                let date = new Date(fromDate); // Convert to Date object
+                date.setMonth(date.getMonth() + 1); // Add one month
+                date.setDate(date.getDate() - 1); // Subtract one day
+
+                let year = date.getFullYear();
+                let month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                let day = String(date.getDate()).padStart(2, '0');
+                let toDate = `${year}-${month}-${day}`; // Format date as YYYY-MM-DD
+                $('#to_date').val(toDate); // Set value for #to_date
             }
         });
 

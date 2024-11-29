@@ -233,7 +233,7 @@
                             {{-- @php
                                 $latestFives = $todayPunchData->where('punch_by', '0')->reverse()->take(6);
                             @endphp --}}
-                            @foreach ($todayPunchData->sortByDesc('check_in')->take(6) as $latest)
+                            @foreach ($todayPunchData->where('punch_by', '0')->sortByDesc('check_in')->take(6) as $latest)
                                 <div class="col-12 card rounded latest-update-sec mb-2">
                                     <div class="media py-2">
                                         <div class="col-12">
