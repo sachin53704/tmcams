@@ -29,21 +29,21 @@ class ImportDepartment extends Command
      */
     public function handle()
     {
-        $departments = DB::table( caseMatchTable('department_t') )->get();
+        // $departments = DB::table( caseMatchTable('department_t') )->get();
 
-        foreach($departments as $department)
-        {
-            DB::table('departments')->updateOrInsert(
-                ['id'=> $department->Department_Id],
-                [
-                    'department_id' => null,
-                    'ward_id' => $department->ward_id,
-                    'name' => $department->Department_Name ?? '',
-                    'initial' => preg_filter('/[^A-Z]/', '', ucwords($department->Department_Name)) ,
-                    'level' => '1',
-                ]
-            );
-        }
+        // foreach($departments as $department)
+        // {
+        //     DB::table('departments')->updateOrInsert(
+        //         ['id'=> $department->Department_Id],
+        //         [
+        //             'department_id' => null,
+        //             'ward_id' => $department->ward_id,
+        //             'name' => $department->Department_Name ?? '',
+        //             'initial' => preg_filter('/[^A-Z]/', '', ucwords($department->Department_Name)) ,
+        //             'level' => '1',
+        //         ]
+        //     );
+        // }
 
 
         $this->info('The Department is Imported successfully!');
